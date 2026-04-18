@@ -1,0 +1,1710 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DPSP — Directive Principles Study Portal | TNPSC & UPSC</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap');
+
+:root {
+  --bg: #0b0f1a;
+  --bg2: #111827;
+  --bg3: #1a2235;
+  --bg4: #1e2a40;
+  --border: #2a3550;
+  --border2: #3a4a6a;
+  --indigo: #6366f1;
+  --indigo-dim: rgba(99,102,241,0.15);
+  --amber: #f59e0b;
+  --amber-dim: rgba(245,158,11,0.13);
+  --emerald: #10b981;
+  --emerald-dim: rgba(16,185,129,0.12);
+  --rose: #f43f5e;
+  --rose-dim: rgba(244,63,94,0.12);
+  --sky: #38bdf8;
+  --sky-dim: rgba(56,189,248,0.12);
+  --violet: #a78bfa;
+  --text: #e2e8f0;
+  --text-dim: #94a3b8;
+  --text-muted: #475569;
+  --card: #131c2e;
+  --card-hover: #192236;
+  --radius: 14px;
+  --tr: 0.22s cubic-bezier(0.4,0,0.2,1);
+}
+.light {
+  --bg: #f0f4ff;
+  --bg2: #ffffff;
+  --bg3: #e8edf8;
+  --bg4: #dde4f5;
+  --border: #c7d2e8;
+  --border2: #a0b0d0;
+  --text: #0f172a;
+  --text-dim: #334155;
+  --text-muted: #94a3b8;
+  --card: #ffffff;
+  --card-hover: #f1f5ff;
+  --indigo-dim: rgba(99,102,241,0.08);
+  --amber-dim: rgba(245,158,11,0.08);
+  --emerald-dim: rgba(16,185,129,0.07);
+  --rose-dim: rgba(244,63,94,0.07);
+  --sky-dim: rgba(56,189,248,0.07);
+}
+
+*,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
+body {
+  font-family:'DM Sans',sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  min-height:100vh;
+  overflow-x:hidden;
+  transition:background var(--tr), color var(--tr);
+}
+
+/* ── LAYOUT ── */
+.app { display:flex; min-height:100vh; }
+
+/* ── SIDEBAR ── */
+.sidebar {
+  width:268px;
+  background:var(--bg2);
+  border-right:1px solid var(--border);
+  position:fixed;
+  top:0; left:0;
+  height:100vh;
+  overflow-y:auto;
+  z-index:100;
+  display:flex;
+  flex-direction:column;
+  transition:transform var(--tr);
+}
+.sidebar-logo {
+  padding:22px 20px 16px;
+  border-bottom:1px solid var(--border);
+}
+.logo-main {
+  font-family:'Crimson Pro',serif;
+  font-size:1.6rem;
+  font-weight:700;
+  letter-spacing:-0.5px;
+  background:linear-gradient(135deg,var(--indigo),var(--violet));
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+  line-height:1.1;
+}
+.logo-sub {
+  font-size:0.65rem;
+  text-transform:uppercase;
+  letter-spacing:2px;
+  color:var(--text-muted);
+  margin-top:4px;
+  font-weight:600;
+}
+.nav-group { padding:10px 10px 0; }
+.nav-group-label {
+  font-size:0.6rem;
+  text-transform:uppercase;
+  letter-spacing:2.5px;
+  color:var(--text-muted);
+  padding:8px 8px 4px;
+  font-weight:700;
+}
+.nav-btn {
+  display:flex;
+  align-items:center;
+  gap:9px;
+  width:100%;
+  padding:9px 12px;
+  border:none;
+  background:none;
+  border-radius:9px;
+  cursor:pointer;
+  font-size:0.86rem;
+  font-weight:500;
+  color:var(--text-dim);
+  transition:all var(--tr);
+  margin-bottom:1px;
+  text-align:left;
+}
+.nav-btn .ni { font-size:0.95rem; width:20px; text-align:center; flex-shrink:0; }
+.nav-btn:hover { background:var(--indigo-dim); color:var(--text); }
+.nav-btn.active { background:var(--indigo-dim); color:var(--indigo); font-weight:700; }
+.nav-btn.active .ni { filter:none; }
+
+.sidebar-footer {
+  margin-top:auto;
+  padding:14px;
+  border-top:1px solid var(--border);
+}
+.prog-label { font-size:0.72rem; color:var(--text-muted); margin-bottom:7px; font-weight:600; }
+.prog-bg { background:var(--bg3); border-radius:99px; height:5px; overflow:hidden; }
+.prog-fill { height:100%; border-radius:99px; background:linear-gradient(90deg,var(--indigo),var(--violet)); transition:width 0.5s ease; }
+.prog-txt { font-family:'JetBrains Mono',monospace; font-size:0.7rem; color:var(--text-dim); margin-top:5px; }
+
+/* ── MAIN ── */
+.main { margin-left:268px; flex:1; display:flex; flex-direction:column; }
+.topbar {
+  background:var(--bg2);
+  border-bottom:1px solid var(--border);
+  padding:13px 26px;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  position:sticky;
+  top:0;
+  z-index:50;
+}
+.hamburger { display:none; background:none; border:none; color:var(--text); font-size:1.2rem; cursor:pointer; padding:4px; }
+.topbar-title { font-family:'Crimson Pro',serif; font-size:1.15rem; font-weight:700; flex:1; color:var(--text); }
+.badge {
+  font-size:0.63rem;
+  font-weight:700;
+  text-transform:uppercase;
+  letter-spacing:0.8px;
+  padding:3px 8px;
+  border-radius:99px;
+  border:1px solid;
+}
+.badge-indigo { color:var(--indigo); border-color:var(--indigo); background:var(--indigo-dim); }
+.badge-amber { color:var(--amber); border-color:var(--amber); background:var(--amber-dim); }
+.icon-btn {
+  width:34px; height:34px;
+  background:var(--bg3);
+  border:1px solid var(--border);
+  border-radius:8px;
+  display:flex; align-items:center; justify-content:center;
+  cursor:pointer;
+  font-size:0.95rem;
+  color:var(--text);
+  transition:all var(--tr);
+  flex-shrink:0;
+}
+.icon-btn:hover { border-color:var(--indigo); background:var(--indigo-dim); color:var(--indigo); }
+
+.content { padding:26px; flex:1; }
+.sec { display:none; animation:fadeUp 0.28s ease; }
+.sec.active { display:block; }
+@keyframes fadeUp { from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:none} }
+
+/* ── HERO ── */
+.hero {
+  background:linear-gradient(135deg,var(--bg2) 0%,var(--bg3) 100%);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:30px;
+  margin-bottom:22px;
+  position:relative;
+  overflow:hidden;
+}
+.hero::after {
+  content:'';
+  position:absolute;
+  top:-50px; right:-50px;
+  width:220px; height:220px;
+  border-radius:50%;
+  background:var(--indigo-dim);
+  pointer-events:none;
+}
+.hero h1 {
+  font-family:'Crimson Pro',serif;
+  font-size:2.2rem;
+  font-weight:700;
+  color:var(--indigo);
+  line-height:1.15;
+  margin-bottom:6px;
+}
+.hero h1 span { color:var(--violet); }
+.hero p { color:var(--text-dim); font-size:0.95rem; line-height:1.65; max-width:580px; }
+.hero-tags { display:flex; gap:8px; flex-wrap:wrap; margin-top:14px; }
+
+/* ── GRIDS ── */
+.g2 { display:grid; grid-template-columns:repeat(auto-fill,minmax(290px,1fr)); gap:14px; }
+.g3 { display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:14px; }
+.g4 { display:grid; grid-template-columns:repeat(auto-fill,minmax(165px,1fr)); gap:12px; }
+
+/* ── CARDS ── */
+.card {
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:20px;
+  transition:all var(--tr);
+}
+.card.clickable { cursor:pointer; }
+.card.clickable:hover { background:var(--card-hover); border-color:var(--indigo); transform:translateY(-2px); box-shadow:0 8px 24px rgba(0,0,0,0.25); }
+.card-head { display:flex; align-items:center; gap:10px; margin-bottom:10px; }
+.ci {
+  width:34px; height:34px;
+  border-radius:8px;
+  display:flex; align-items:center; justify-content:center;
+  font-size:1rem; flex-shrink:0;
+}
+.ci-indigo { background:var(--indigo-dim); color:var(--indigo); }
+.ci-amber { background:var(--amber-dim); color:var(--amber); }
+.ci-emerald { background:var(--emerald-dim); color:var(--emerald); }
+.ci-rose { background:var(--rose-dim); color:var(--rose); }
+.ci-sky { background:var(--sky-dim); color:var(--sky); }
+.ci-violet { background:rgba(167,139,250,0.12); color:var(--violet); }
+.card h3 { font-size:0.93rem; font-weight:700; color:var(--text); }
+.card p { font-size:0.84rem; color:var(--text-dim); line-height:1.6; }
+.stat-card { background:var(--card); border:1px solid var(--border); border-radius:var(--radius); padding:18px; text-align:center; }
+.stat-n { font-family:'Crimson Pro',serif; font-size:2.1rem; font-weight:700; color:var(--indigo); }
+.stat-l { font-size:0.75rem; color:var(--text-muted); text-transform:uppercase; letter-spacing:1px; margin-top:2px; font-weight:600; }
+
+/* ── SECTION HEADER ── */
+.sh { margin-bottom:22px; }
+.sh h2 { font-family:'Crimson Pro',serif; font-size:1.55rem; font-weight:700; color:var(--text); margin-bottom:4px; }
+.sh p { color:var(--text-dim); font-size:0.87rem; }
+hr.div { border:none; border-top:1px solid var(--border); margin:22px 0; }
+
+/* ── CONCEPT ── */
+.cp { max-width:860px; }
+.cp h2 { font-family:'Crimson Pro',serif; font-size:1.7rem; font-weight:700; color:var(--indigo); margin-bottom:10px; }
+.cp h3 { font-size:1.02rem; font-weight:700; color:var(--violet); margin:20px 0 8px; }
+.cp h4 { font-size:0.9rem; font-weight:700; color:var(--amber); margin:14px 0 6px; }
+.cp p { font-size:0.88rem; color:var(--text-dim); line-height:1.8; margin-bottom:10px; }
+.cp ul { padding-left:18px; margin-bottom:10px; }
+.cp ul li { font-size:0.87rem; color:var(--text-dim); line-height:1.7; margin-bottom:3px; }
+.cp ul li strong { color:var(--text); }
+
+.hbox {
+  background:var(--indigo-dim);
+  border-left:3px solid var(--indigo);
+  border-radius:0 9px 9px 0;
+  padding:13px 16px;
+  margin:14px 0;
+  font-size:0.87rem;
+  color:var(--text-dim);
+  line-height:1.7;
+}
+.hbox strong { color:var(--indigo); }
+.abox {
+  background:var(--amber-dim);
+  border-left:3px solid var(--amber);
+  border-radius:0 9px 9px 0;
+  padding:13px 16px;
+  margin:14px 0;
+  font-size:0.87rem;
+  color:var(--text-dim);
+  line-height:1.7;
+}
+.abox strong { color:var(--amber); }
+.ebox {
+  background:var(--emerald-dim);
+  border-left:3px solid var(--emerald);
+  border-radius:0 9px 9px 0;
+  padding:13px 16px;
+  margin:14px 0;
+  font-size:0.87rem;
+  color:var(--text-dim);
+  line-height:1.7;
+}
+.ebox strong { color:var(--emerald); }
+.rbox {
+  background:var(--rose-dim);
+  border-left:3px solid var(--rose);
+  border-radius:0 9px 9px 0;
+  padding:13px 16px;
+  margin:14px 0;
+  font-size:0.87rem;
+  color:var(--text-dim);
+  line-height:1.7;
+}
+.rbox strong { color:var(--rose); }
+
+.dtable { width:100%; border-collapse:collapse; font-size:0.84rem; margin:14px 0; }
+.dtable th {
+  background:var(--bg3);
+  color:var(--amber);
+  padding:9px 13px;
+  text-align:left;
+  font-size:0.72rem;
+  text-transform:uppercase;
+  letter-spacing:0.8px;
+  border:1px solid var(--border);
+}
+.dtable td { padding:9px 13px; border:1px solid var(--border); color:var(--text-dim); line-height:1.5; vertical-align:top; }
+.dtable tr:hover td { background:var(--card-hover); }
+
+.eflag {
+  display:inline-block;
+  font-size:0.62rem;
+  font-weight:700;
+  text-transform:uppercase;
+  letter-spacing:0.8px;
+  padding:2px 6px;
+  border-radius:4px;
+  margin-left:5px;
+}
+.ft { background:rgba(245,158,11,0.18); color:var(--amber); }
+.fu { background:rgba(99,102,241,0.18); color:var(--indigo); }
+
+.art-pill {
+  display:inline-flex;
+  align-items:center;
+  gap:4px;
+  background:var(--indigo-dim);
+  border:1px solid var(--indigo);
+  border-radius:6px;
+  padding:3px 9px;
+  font-size:0.78rem;
+  font-weight:700;
+  color:var(--indigo);
+  font-family:'JetBrains Mono',monospace;
+  margin:3px;
+}
+
+/* ── ARTICLE BROWSER ── */
+.art-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:12px; }
+.art-card {
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding:14px 16px;
+  transition:all var(--tr);
+  cursor:pointer;
+}
+.art-card:hover { border-color:var(--indigo); background:var(--card-hover); }
+.art-card-top { display:flex; align-items:center; gap:10px; margin-bottom:8px; }
+.art-num {
+  font-family:'JetBrains Mono',monospace;
+  font-size:0.8rem;
+  font-weight:700;
+  background:var(--indigo-dim);
+  color:var(--indigo);
+  border:1px solid var(--indigo);
+  border-radius:6px;
+  padding:2px 8px;
+  flex-shrink:0;
+}
+.art-cat {
+  font-size:0.65rem;
+  font-weight:700;
+  text-transform:uppercase;
+  letter-spacing:0.8px;
+  padding:2px 7px;
+  border-radius:4px;
+}
+.cat-socialist { background:rgba(16,185,129,0.15); color:var(--emerald); }
+.cat-gandhian { background:rgba(245,158,11,0.15); color:var(--amber); }
+.cat-liberal { background:rgba(56,189,248,0.15); color:var(--sky); }
+.art-card h4 { font-size:0.88rem; font-weight:700; color:var(--text); margin-bottom:4px; }
+.art-card p { font-size:0.8rem; color:var(--text-dim); line-height:1.5; }
+.art-card .key-flag {
+  display:inline-block;
+  font-size:0.62rem;
+  background:rgba(245,158,11,0.15);
+  color:var(--amber);
+  padding:1px 5px;
+  border-radius:3px;
+  margin-top:6px;
+  font-weight:700;
+}
+
+/* ── TABS ── */
+.tabs { display:flex; gap:3px; background:var(--bg3); border-radius:9px; padding:4px; margin-bottom:18px; }
+.tab { flex:1; padding:8px 12px; border:none; background:none; border-radius:6px; cursor:pointer; font-size:0.81rem; font-weight:600; color:var(--text-muted); transition:all var(--tr); }
+.tab.active { background:var(--card); color:var(--text); box-shadow:0 1px 4px rgba(0,0,0,0.2); }
+.tab-pane { display:none; }
+.tab-pane.active { display:block; }
+
+/* ── MCQ ── */
+.mcq-wrap { margin-bottom:14px; }
+.mcq-card {
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:22px;
+}
+.mcq-meta { display:flex; align-items:center; gap:8px; margin-bottom:10px; }
+.mcq-num { font-family:'JetBrains Mono',monospace; font-size:0.72rem; color:var(--text-muted); }
+.mcq-q { font-size:0.93rem; font-weight:600; color:var(--text); line-height:1.6; margin-bottom:14px; }
+.mcq-opts { display:flex; flex-direction:column; gap:7px; }
+.mcq-opt {
+  display:flex; align-items:flex-start; gap:9px;
+  padding:9px 13px;
+  border-radius:8px;
+  border:1px solid var(--border);
+  cursor:pointer;
+  font-size:0.87rem;
+  color:var(--text-dim);
+  background:var(--bg3);
+  transition:all var(--tr);
+}
+.mcq-opt:hover:not(.dis) { border-color:var(--indigo); background:var(--indigo-dim); color:var(--text); }
+.mcq-opt.ok { border-color:var(--emerald); background:var(--emerald-dim); color:var(--emerald); }
+.mcq-opt.bad { border-color:var(--rose); background:var(--rose-dim); color:var(--rose); }
+.mcq-opt.dis { cursor:not-allowed; }
+.ol { font-family:'JetBrains Mono',monospace; font-size:0.72rem; font-weight:700; min-width:20px; padding-top:1px; }
+.exp {
+  display:none;
+  margin-top:12px;
+  padding:11px 14px;
+  background:var(--sky-dim);
+  border-left:3px solid var(--sky);
+  border-radius:0 8px 8px 0;
+  font-size:0.84rem;
+  color:var(--text-dim);
+  line-height:1.7;
+  animation:fadeUp 0.25s ease;
+}
+.exp.show { display:block; }
+.exp strong { color:var(--sky); }
+
+/* ── SEARCH / FILTER ── */
+.sbar {
+  display:flex; align-items:center; gap:8px;
+  background:var(--bg3);
+  border:1px solid var(--border);
+  border-radius:8px;
+  padding:7px 12px;
+  margin-bottom:16px;
+  transition:border-color var(--tr);
+}
+.sbar:focus-within { border-color:var(--indigo); }
+.sbar input { flex:1; background:none; border:none; outline:none; font-size:0.88rem; color:var(--text); font-family:'DM Sans',sans-serif; }
+.sbar input::placeholder { color:var(--text-muted); }
+.chips { display:flex; gap:7px; flex-wrap:wrap; margin-bottom:16px; }
+.chip {
+  padding:4px 11px;
+  border-radius:99px;
+  border:1px solid var(--border);
+  font-size:0.75rem;
+  font-weight:600;
+  cursor:pointer;
+  color:var(--text-muted);
+  background:none;
+  transition:all var(--tr);
+}
+.chip:hover,.chip.active { border-color:var(--indigo); color:var(--indigo); background:var(--indigo-dim); }
+
+/* ── FLASHCARDS ── */
+.fc-arena { display:flex; flex-direction:column; align-items:center; gap:22px; }
+.fc-ctr { font-family:'JetBrains Mono',monospace; font-size:0.82rem; color:var(--text-muted); }
+.fc-wrap { width:100%; max-width:560px; perspective:1200px; }
+.fc {
+  width:100%; min-height:230px;
+  position:relative;
+  transform-style:preserve-3d;
+  transition:transform 0.55s cubic-bezier(0.4,0,0.2,1);
+  cursor:pointer;
+}
+.fc.flipped { transform:rotateY(180deg); }
+.fc-face {
+  position:absolute; top:0; left:0;
+  width:100%; min-height:230px;
+  border-radius:var(--radius);
+  border:1px solid var(--border);
+  display:flex; flex-direction:column;
+  align-items:center; justify-content:center;
+  padding:26px 30px;
+  backface-visibility:hidden;
+  text-align:center;
+}
+.fc-front { background:var(--card); }
+.fc-back { background:linear-gradient(135deg,#131c3a,#1a2550); border-color:var(--indigo); transform:rotateY(180deg); }
+.fc-lbl { font-size:0.63rem; text-transform:uppercase; letter-spacing:2px; font-weight:700; margin-bottom:14px; }
+.lbl-f { color:var(--text-muted); }
+.lbl-b { color:var(--indigo); }
+.fc-q { font-size:0.98rem; font-weight:600; color:var(--text); line-height:1.6; }
+.fc-a { font-size:0.9rem; color:var(--indigo); line-height:1.7; }
+.fc-h { font-size:0.72rem; color:var(--text-muted); margin-top:10px; }
+.fc-cat { font-size:0.68rem; font-weight:700; text-transform:uppercase; letter-spacing:1px; margin-top:8px; }
+.fc-ctl { display:flex; gap:10px; flex-wrap:wrap; justify-content:center; }
+.diff-btns { display:flex; gap:7px; }
+.db {
+  padding:6px 14px;
+  border-radius:7px;
+  border:1px solid;
+  cursor:pointer;
+  font-size:0.78rem;
+  font-weight:700;
+  background:none;
+  transition:all var(--tr);
+}
+.de { border-color:var(--emerald); color:var(--emerald); }
+.de:hover { background:var(--emerald-dim); }
+.dm { border-color:var(--amber); color:var(--amber); }
+.dm:hover { background:var(--amber-dim); }
+.dh { border-color:var(--rose); color:var(--rose); }
+.dh:hover { background:var(--rose-dim); }
+.fc-stats { display:flex; gap:14px; font-size:0.78rem; font-family:'JetBrains Mono',monospace; }
+.fs { display:flex; align-items:center; gap:4px; }
+
+/* ── BUTTONS ── */
+.btn {
+  padding:8px 18px;
+  border-radius:8px;
+  border:none;
+  cursor:pointer;
+  font-size:0.84rem;
+  font-weight:700;
+  transition:all var(--tr);
+  font-family:'DM Sans',sans-serif;
+}
+.btn-primary { background:var(--indigo); color:#fff; }
+.btn-primary:hover { background:#4f46e5; }
+.btn-amber { background:var(--amber); color:#000; }
+.btn-amber:hover { background:#d97706; }
+.btn-ghost { background:var(--bg3); border:1px solid var(--border); color:var(--text-dim); }
+.btn-ghost:hover { border-color:var(--border2); color:var(--text); }
+.btn-rose { background:var(--rose); color:#fff; }
+.btn-rose:hover { background:#e11d48; }
+.btn-emerald { background:var(--emerald); color:#000; }
+
+/* ── MOCK TEST ── */
+.mock-setup { max-width:480px; margin:0 auto; text-align:center; padding:36px 0; }
+.mock-setup h2 { font-family:'Crimson Pro',serif; font-size:1.8rem; color:var(--indigo); margin-bottom:10px; }
+.mock-setup p { color:var(--text-dim); margin-bottom:26px; line-height:1.7; font-size:0.9rem; }
+.mo-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:10px; margin-bottom:22px; }
+.mo {
+  background:var(--card);
+  border:2px solid var(--border);
+  border-radius:10px;
+  padding:14px;
+  cursor:pointer;
+  transition:all var(--tr);
+  text-align:center;
+}
+.mo:hover,.mo.sel { border-color:var(--indigo); background:var(--indigo-dim); }
+.mo .mn { font-family:'Crimson Pro',serif; font-size:1.7rem; font-weight:700; color:var(--indigo); }
+.mo .ml { font-size:0.78rem; color:var(--text-muted); margin-top:2px; }
+
+.mock-hdr {
+  display:flex; align-items:center; justify-content:space-between;
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:13px 18px;
+  margin-bottom:18px;
+}
+.mock-timer { font-family:'JetBrains Mono',monospace; font-size:1.05rem; font-weight:700; color:var(--indigo); }
+.mock-timer.warn { color:var(--rose); animation:pulse 1s infinite; }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+.mock-qc { font-size:0.8rem; color:var(--text-muted); margin-bottom:3px; }
+.mock-pw { flex:1; margin:0 18px; }
+
+.mock-result { text-align:center; padding:36px 16px; }
+.mock-result h2 { font-family:'Crimson Pro',serif; font-size:2rem; color:var(--indigo); margin-bottom:8px; }
+.sc-circle {
+  width:130px; height:130px;
+  border-radius:50%;
+  border:5px solid var(--indigo);
+  display:flex; flex-direction:column;
+  align-items:center; justify-content:center;
+  margin:20px auto;
+  background:var(--indigo-dim);
+}
+.sc-pct { font-family:'Crimson Pro',serif; font-size:2.1rem; font-weight:700; color:var(--indigo); }
+.sc-sub { font-size:0.75rem; color:var(--text-muted); }
+.sc-details { display:flex; gap:22px; justify-content:center; margin:14px 0 26px; flex-wrap:wrap; }
+.sc-d { text-align:center; }
+.sc-d .sdn { font-family:'JetBrains Mono',monospace; font-size:1.4rem; font-weight:700; }
+.sc-d .sdl { font-size:0.72rem; color:var(--text-muted); }
+
+/* ── DIAGRAM / VISUAL ── */
+.dia-wrap {
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:22px;
+  margin-bottom:18px;
+}
+.dia-title { font-size:0.72rem; text-transform:uppercase; letter-spacing:1.5px; color:var(--text-muted); font-weight:700; margin-bottom:14px; }
+svg.dsvg { width:100%; height:auto; }
+
+.timeline {
+  position:relative;
+  padding-left:28px;
+  margin:10px 0;
+}
+.timeline::before {
+  content:'';
+  position:absolute;
+  left:10px; top:0; bottom:0;
+  width:2px;
+  background:var(--border);
+}
+.tl-item {
+  position:relative;
+  margin-bottom:18px;
+}
+.tl-item::before {
+  content:'';
+  position:absolute;
+  left:-22px; top:4px;
+  width:10px; height:10px;
+  border-radius:50%;
+  background:var(--indigo);
+  border:2px solid var(--bg2);
+}
+.tl-item .tl-year { font-family:'JetBrains Mono',monospace; font-size:0.72rem; font-weight:700; color:var(--indigo); margin-bottom:2px; }
+.tl-item .tl-text { font-size:0.85rem; color:var(--text-dim); line-height:1.5; }
+.tl-item .tl-text strong { color:var(--text); }
+
+/* ── COMPARE ── */
+.compare-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:16px 0; }
+.cmp-card {
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding:16px;
+}
+.cmp-head {
+  font-size:0.85rem;
+  font-weight:700;
+  margin-bottom:10px;
+  padding-bottom:8px;
+  border-bottom:1px solid var(--border);
+}
+.cmp-head.fr { color:var(--rose); }
+.cmp-head.dp { color:var(--indigo); }
+.cmp-head.dp2 { color:var(--emerald); }
+.cmp-item { display:flex; gap:8px; margin-bottom:7px; font-size:0.83rem; color:var(--text-dim); line-height:1.5; }
+.cmp-item::before { content:'▸'; color:var(--indigo); flex-shrink:0; }
+
+/* ── MOBILE OVERLAY ── */
+.overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.55); z-index:90; }
+.overlay.show { display:block; }
+
+/* ── RESPONSIVE ── */
+@media(max-width:768px) {
+  .sidebar { transform:translateX(-100%); }
+  .sidebar.open { transform:translateX(0); }
+  .main { margin-left:0; }
+  .hamburger { display:flex; }
+  .content { padding:14px; }
+  .hero { padding:18px; }
+  .hero h1 { font-size:1.6rem; }
+  .g2,.art-grid { grid-template-columns:1fr; }
+  .compare-grid { grid-template-columns:1fr; }
+}
+@media(max-width:480px) {
+  .g3 { grid-template-columns:repeat(2,1fr); }
+  .g4 { grid-template-columns:repeat(2,1fr); }
+  .tabs { flex-wrap:wrap; }
+}
+::-webkit-scrollbar { width:5px; height:5px; }
+::-webkit-scrollbar-track { background:var(--bg2); }
+::-webkit-scrollbar-thumb { background:var(--border); border-radius:10px; }
+::-webkit-scrollbar-thumb:hover { background:var(--border2); }
+</style>
+</head>
+<body>
+<div class="app">
+
+<!-- ══════════════════ SIDEBAR ══════════════════ -->
+<nav class="sidebar" id="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-main">DPSP<span style="color:var(--violet);font-size:1rem"> Portal</span></div>
+    <div class="logo-sub">Directive Principles · TNPSC & UPSC</div>
+  </div>
+
+  <div class="nav-group">
+    <div class="nav-group-label">Overview</div>
+    <button class="nav-btn active" onclick="go('overview')"><span class="ni">🏠</span>Dashboard</button>
+  </div>
+
+  <div class="nav-group">
+    <div class="nav-group-label">Core Concepts</div>
+    <button class="nav-btn" onclick="go('intro')"><span class="ni">📖</span>Introduction</button>
+    <button class="nav-btn" onclick="go('articles')"><span class="ni">📋</span>Articles 36–51</button>
+    <button class="nav-btn" onclick="go('categories')"><span class="ni">🗂️</span>Categories</button>
+    <button class="nav-btn" onclick="go('frvsds')"><span class="ni">⚖️</span>FR vs DPSP</button>
+    <button class="nav-btn" onclick="go('amendments')"><span class="ni">📝</span>Key Amendments</button>
+    <button class="nav-btn" onclick="go('cases')"><span class="ni">⚖️</span>Landmark Cases</button>
+    <button class="nav-btn" onclick="go('schemes')"><span class="ni">🌿</span>Implementation</button>
+  </div>
+
+  <div class="nav-group">
+    <div class="nav-group-label">Practice</div>
+    <button class="nav-btn" onclick="go('mcq')"><span class="ni">❓</span>MCQ Practice</button>
+    <button class="nav-btn" onclick="go('flashcards')"><span class="ni">🃏</span>Flashcards</button>
+    <button class="nav-btn" onclick="go('mocktest')"><span class="ni">📝</span>Mock Test</button>
+    <button class="nav-btn" onclick="go('diagrams')"><span class="ni">🗺️</span>Diagrams</button>
+  </div>
+
+  <div class="sidebar-footer">
+    <div class="prog-label">Topics Visited</div>
+    <div class="prog-bg"><div class="prog-fill" id="progFill" style="width:0%"></div></div>
+    <div class="prog-txt" id="progTxt">0 / 0 topics</div>
+  </div>
+</nav>
+<div class="overlay" id="overlay" onclick="closeSB()"></div>
+
+<!-- ══════════════════ MAIN ══════════════════ -->
+<div class="main">
+  <div class="topbar">
+    <button class="hamburger" onclick="toggleSB()">☰</button>
+    <div class="topbar-title" id="tbTitle">Dashboard</div>
+    <span class="badge badge-amber">TNPSC ★</span>
+    <span class="badge badge-indigo">UPSC</span>
+    <button class="icon-btn" onclick="toggleTheme()" title="Toggle theme">🌙</button>
+  </div>
+  <div class="content">
+
+<!-- ════════════════ OVERVIEW ════════════════ -->
+<div class="sec active" id="sec-overview">
+  <div class="hero">
+    <h1>Directive Principles<span><br>of State Policy</span></h1>
+    <p>Part IV of the Indian Constitution (Articles 36–51) — the socio-economic charter guiding state policy. Essential for TNPSC Group I/II/IV and UPSC Prelims & Mains GS-II/GS-III.</p>
+    <div class="hero-tags">
+      <span class="badge badge-amber">TNPSC Group I · II · IV</span>
+      <span class="badge badge-indigo">UPSC Prelims</span>
+      <span class="badge badge-indigo">UPSC Mains GS-II</span>
+    </div>
+  </div>
+  <div class="g4" style="margin-bottom:22px">
+    <div class="stat-card"><div class="stat-n">16</div><div class="stat-l">Articles (36–51)</div></div>
+    <div class="stat-card"><div class="stat-n">3</div><div class="stat-l">Categories</div></div>
+    <div class="stat-card"><div class="stat-n">55+</div><div class="stat-l">MCQ Questions</div></div>
+    <div class="stat-card"><div class="stat-n">45+</div><div class="stat-l">Flashcards</div></div>
+    <div class="stat-card"><div class="stat-n">10+</div><div class="stat-l">Landmark Cases</div></div>
+    <div class="stat-card"><div class="stat-n" id="bestPct">0%</div><div class="stat-l">Best Mock Score</div></div>
+  </div>
+  <div class="sh"><h2>Quick Navigation</h2><p>Jump to any topic</p></div>
+  <div class="g2">
+    <div class="card clickable" onclick="go('intro')">
+      <div class="card-head"><div class="ci ci-indigo">📖</div><h3>Introduction</h3></div>
+      <p>Origin from Irish Constitution, nature, importance, and distinction from Fundamental Rights.</p>
+    </div>
+    <div class="card clickable" onclick="go('articles')">
+      <div class="card-head"><div class="ci ci-amber">📋</div><h3>Articles 36–51</h3></div>
+      <p>Browse every article with category, key content, and exam relevance flags.</p>
+    </div>
+    <div class="card clickable" onclick="go('categories')">
+      <div class="card-head"><div class="ci ci-emerald">🗂️</div><h3>3 Categories</h3></div>
+      <p>Socialist, Gandhian, and Liberal-Intellectual categories with article-wise mapping.</p>
+    </div>
+    <div class="card clickable" onclick="go('frvsds')">
+      <div class="card-head"><div class="ci ci-rose">⚖️</div><h3>FR vs DPSP</h3></div>
+      <p>Differences, conflicts, constitutional resolution through amendments and SC judgments.</p>
+    </div>
+    <div class="card clickable" onclick="go('cases')">
+      <div class="card-head"><div class="ci ci-sky">⚖️</div><h3>Landmark Cases</h3></div>
+      <p>Champakam, Golaknath, Kesavananda, Minerva Mills — all key DPSP cases.</p>
+    </div>
+    <div class="card clickable" onclick="go('schemes')">
+      <div class="card-head"><div class="ci ci-violet">🌿</div><h3>Implementation</h3></div>
+      <p>How DPSPs are implemented through schemes, laws, and constitutional amendments.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════ INTRO ════════════════ -->
+<div class="sec" id="sec-intro">
+  <div class="cp">
+    <h2>Introduction to DPSP</h2>
+    <p>Directive Principles of State Policy (DPSP) are contained in <strong>Part IV, Articles 36–51</strong> of the Indian Constitution. They are directives to the state for establishing a just social, economic, and political order.</p>
+
+    <div class="hbox"><strong>Origin:</strong> DPSPs were borrowed from the <strong>Irish Constitution of 1937</strong>, which in turn derived the concept from the <strong>Spanish Constitution</strong>. Dr. B.R. Ambedkar called them "novel features" of the Constitution.</div>
+
+    <h3>Nature of DPSPs <span class="eflag ft">TNPSC ★</span></h3>
+    <ul>
+      <li><strong>Non-justiciable:</strong> Cannot be enforced by courts (unlike Fundamental Rights)</li>
+      <li><strong>Fundamental in governance:</strong> "Fundamental in the governance of the country" — Article 37</li>
+      <li><strong>Duty of State:</strong> It shall be the duty of the State to apply these principles in making laws</li>
+      <li><strong>Positive obligations:</strong> Unlike FRs (which are mostly negative — "State shall not"), DPSPs are positive obligations on the State</li>
+      <li><strong>Welfare state ideal:</strong> Reflect the socio-economic goals of a welfare state</li>
+    </ul>
+
+    <div class="abox"><strong>Article 37:</strong> "The provisions contained in this Part shall not be enforceable by any court, but the principles therein laid down are nevertheless fundamental in the governance of the country and it shall be the duty of the State to apply these principles in making laws."</div>
+
+    <h3>Importance of DPSPs <span class="eflag fu">UPSC</span></h3>
+    <ul>
+      <li>Provide <strong>positive obligations</strong> to build a welfare state</li>
+      <li>Act as a <strong>yardstick</strong> to measure the performance of governments</li>
+      <li>Supplement Fundamental Rights by providing socio-economic justice</li>
+      <li>Serve as <strong>guidelines for legislation and policy-making</strong></li>
+      <li>Help courts in <strong>interpretation of laws</strong> — laws implementing DPSPs are favoured</li>
+      <li>Enable India to achieve the goals of <strong>Preamble</strong> — socialist, secular democratic republic</li>
+    </ul>
+
+    <h3>What is "State" under DPSP? <span class="eflag ft">TNPSC ★</span></h3>
+    <p>Article 36 defines "State" for Part IV purposes. It has the same meaning as in Article 12 (Part III): includes Government and Parliament of India, Government and Legislature of every state, and all local or other authorities within India's territory or under India's Government control.</p>
+
+    <div class="ebox"><strong>Granville Austin</strong> (constitutional historian) described Fundamental Rights and DPSPs as the "Conscience of the Constitution" — together they form an integrated scheme for establishing a just society. He called them a "seamless web" — separating them would destroy the fabric.</div>
+
+    <h3>Classification Sources</h3>
+    <p>Dr. Ambedkar broadly classified DPSPs into three groups, which later scholars refined into:</p>
+    <ul>
+      <li><strong>Socialistic principles</strong> — reflect socialist ideology</li>
+      <li><strong>Gandhian principles</strong> — reflect Gandhiji's constructive programme</li>
+      <li><strong>Liberal-Intellectual principles</strong> — reflect the liberal political tradition</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ════════════════ ARTICLES 36-51 ════════════════ -->
+<div class="sec" id="sec-articles">
+  <div class="sh"><h2>Articles 36–51 Browser</h2><p>All 16 Articles of Part IV with category, content, and exam flags. Click any card to expand.</p></div>
+  <div class="sbar">
+    <span style="color:var(--text-muted)">🔍</span>
+    <input type="text" id="artSearch" placeholder="Search articles, keywords..." oninput="filterArts()">
+  </div>
+  <div class="chips">
+    <button class="chip active" onclick="artFilter(this,'all')">All</button>
+    <button class="chip" onclick="artFilter(this,'socialist')">Socialist</button>
+    <button class="chip" onclick="artFilter(this,'gandhian')">Gandhian</button>
+    <button class="chip" onclick="artFilter(this,'liberal')">Liberal</button>
+  </div>
+  <div class="art-grid" id="artGrid"></div>
+</div>
+
+<!-- ════════════════ CATEGORIES ════════════════ -->
+<div class="sec" id="sec-categories">
+  <div class="cp">
+    <h2>Three Categories of DPSP</h2>
+
+    <h3>1. Socialistic Principles <span class="eflag ft">TNPSC ★</span></h3>
+    <p>These principles reflect the ideology of socialism and aim to establish a welfare state by providing social and economic justice. Most important group from an exam perspective.</p>
+    <table class="dtable">
+      <thead><tr><th>Article</th><th>Provision</th></tr></thead>
+      <tbody>
+        <tr><td><span class="art-pill">Art 38</span></td><td>State to secure a social order for promotion of welfare of people; minimise inequalities of income and status</td></tr>
+        <tr><td><span class="art-pill">Art 39(a)</span></td><td>Adequate means of livelihood for all citizens</td></tr>
+        <tr><td><span class="art-pill">Art 39(b)</span></td><td>Equitable distribution of material resources for common good</td></tr>
+        <tr><td><span class="art-pill">Art 39(c)</span></td><td>Prevention of concentration of wealth and means of production</td></tr>
+        <tr><td><span class="art-pill">Art 39(d)</span></td><td>Equal pay for equal work for men and women</td></tr>
+        <tr><td><span class="art-pill">Art 39(e)</span></td><td>Protection of health and strength of workers; no abuse of children</td></tr>
+        <tr><td><span class="art-pill">Art 39(f)</span></td><td>Children given opportunities to develop in healthy manner; protected against exploitation</td></tr>
+        <tr><td><span class="art-pill">Art 39A</span></td><td>Equal justice and free legal aid (added by 42nd Amendment)</td></tr>
+        <tr><td><span class="art-pill">Art 41</span></td><td>Right to work, education, and public assistance in certain cases</td></tr>
+        <tr><td><span class="art-pill">Art 42</span></td><td>Just and humane conditions of work and maternity relief</td></tr>
+        <tr><td><span class="art-pill">Art 43</span></td><td>Living wage for workers and decent standard of life</td></tr>
+        <tr><td><span class="art-pill">Art 43A</span></td><td>Participation of workers in management of industries (added by 42nd Amendment)</td></tr>
+        <tr><td><span class="art-pill">Art 43B</span></td><td>Promotion of cooperatives (added by 97th Amendment)</td></tr>
+        <tr><td><span class="art-pill">Art 47</span></td><td>Duty to raise level of nutrition and standard of living; prohibition of harmful drugs</td></tr>
+      </tbody>
+    </table>
+
+    <h3>2. Gandhian Principles <span class="eflag ft">TNPSC ★</span></h3>
+    <p>These principles reflect the programme laid down by Gandhiji during the national movement, particularly his constructive programme.</p>
+    <table class="dtable">
+      <thead><tr><th>Article</th><th>Provision</th></tr></thead>
+      <tbody>
+        <tr><td><span class="art-pill">Art 40</span></td><td>Organisation of village panchayats — Gram Swaraj concept</td></tr>
+        <tr><td><span class="art-pill">Art 43</span></td><td>Promotion of cottage industries (shared with socialist)</td></tr>
+        <tr><td><span class="art-pill">Art 43B</span></td><td>Promotion of voluntary formation and functioning of cooperative societies</td></tr>
+        <tr><td><span class="art-pill">Art 46</span></td><td>Promotion of educational and economic interests of SCs, STs and weaker sections</td></tr>
+        <tr><td><span class="art-pill">Art 47</span></td><td>Prohibition of intoxicating drinks and drugs (Gandhian prohibition ideal)</td></tr>
+        <tr><td><span class="art-pill">Art 48</span></td><td>Organisation of agriculture and animal husbandry; prohibition of slaughter of cows, calves</td></tr>
+      </tbody>
+    </table>
+
+    <h3>3. Liberal-Intellectual Principles <span class="eflag fu">UPSC</span></h3>
+    <p>These principles reflect the ideology of liberalism and represent aspirations of enlightened thinking of the framers.</p>
+    <table class="dtable">
+      <thead><tr><th>Article</th><th>Provision</th></tr></thead>
+      <tbody>
+        <tr><td><span class="art-pill">Art 44</span></td><td>Uniform Civil Code throughout the territory of India</td></tr>
+        <tr><td><span class="art-pill">Art 45</span></td><td>Early childhood care and education for children below six years (post-86th Amendment)</td></tr>
+        <tr><td><span class="art-pill">Art 48</span></td><td>Organisation of agriculture and animal husbandry on modern and scientific lines</td></tr>
+        <tr><td><span class="art-pill">Art 48A</span></td><td>Protection and improvement of environment; safeguarding forests and wildlife (added by 42nd Amendment)</td></tr>
+        <tr><td><span class="art-pill">Art 49</span></td><td>Protection of monuments, places and objects of national importance</td></tr>
+        <tr><td><span class="art-pill">Art 50</span></td><td>Separation of judiciary from executive</td></tr>
+        <tr><td><span class="art-pill">Art 51</span></td><td>Promotion of international peace and security; respect for international law</td></tr>
+      </tbody>
+    </table>
+
+    <div class="abox"><strong>Memory Tip — Gandhian Articles:</strong> "Panchayat Cottage Cooperative SC/ST Prohibition Cow" → Art 40, 43, 43B, 46, 47, 48</div>
+    <div class="hbox"><strong>Memory Tip — Liberal Articles:</strong> "UCC Children Environment Monuments Judiciary Peace" → Art 44, 45, 48A, 49, 50, 51</div>
+  </div>
+</div>
+
+<!-- ════════════════ FR vs DPSP ════════════════ -->
+<div class="sec" id="sec-frvsds">
+  <div class="cp">
+    <h2>Fundamental Rights vs DPSP</h2>
+
+    <div class="compare-grid">
+      <div class="cmp-card">
+        <div class="cmp-head fr">⚔ Fundamental Rights (Part III)</div>
+        <div class="cmp-item">Justiciable — enforceable by courts</div>
+        <div class="cmp-item">Negative — "State shall NOT..."</div>
+        <div class="cmp-item">Primarily individual-oriented</div>
+        <div class="cmp-item">Political democracy</div>
+        <div class="cmp-item">Automatic — no legislation needed</div>
+        <div class="cmp-item">Articles 12–35</div>
+        <div class="cmp-item">Borrowed from USA Bill of Rights</div>
+        <div class="cmp-item">Constitutional remedy: Art 32 (SC), Art 226 (HC)</div>
+      </div>
+      <div class="cmp-card">
+        <div class="cmp-head dp">🎯 DPSP (Part IV)</div>
+        <div class="cmp-item">Non-justiciable — not enforceable by courts</div>
+        <div class="cmp-item">Positive — "State shall..."</div>
+        <div class="cmp-item">Community/society-oriented</div>
+        <div class="cmp-item">Social &amp; economic democracy</div>
+        <div class="cmp-item">Require legislation for implementation</div>
+        <div class="cmp-item">Articles 36–51</div>
+        <div class="cmp-item">Borrowed from Irish Constitution</div>
+        <div class="cmp-item">No direct judicial remedy</div>
+      </div>
+    </div>
+
+    <div class="rbox"><strong>The Conflict:</strong> The central question: Can Parliament pass a law implementing DPSP that infringes upon Fundamental Rights? Or do FRs take absolute precedence? This conflict led to several landmark constitutional amendments and Supreme Court judgments.</div>
+
+    <h3>Constitutional Resolution — Timeline <span class="eflag fu">UPSC</span></h3>
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-year">1951 — 1st Amendment</div>
+        <div class="tl-text"><strong>State of Madras v Champakam Dorairajan (1951):</strong> SC held FRs prevail over DPSP. Parliament responded with 1st Amendment adding 9th Schedule to protect land reform laws.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-year">1967 — Golaknath Case</div>
+        <div class="tl-text"><strong>Golaknath v State of Punjab:</strong> SC held Parliament cannot amend Part III (FRs) at all. FRs are sacrosanct. This created a major impasse.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-year">1971 — 24th Amendment</div>
+        <div class="tl-text">Parliament added "notwithstanding anything in this Constitution" clause to Article 368 — asserting right to amend any part including FRs. Also amended Art 13 to exclude Art 368.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-year">1972 — 25th Amendment</div>
+        <div class="tl-text">Added Art 31C: Laws giving effect to Art 39(b) and 39(c) — distributive justice — cannot be challenged on grounds of violating Art 14, 19. Directive principles given priority over these FRs.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-year">1973 — Kesavananda Bharati</div>
+        <div class="tl-text"><strong>Kesavananda Bharati v State of Kerala:</strong> 13-judge bench. Parliament can amend Constitution including FRs, but CANNOT destroy the <strong>Basic Structure</strong>. Upheld 24th Amendment, partially upheld 25th Amendment (removed the non-justiciability clause).</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-year">1976 — 42nd Amendment</div>
+        <div class="tl-text">Extended Art 31C: gave primacy to ALL DPSPs (not just Art 39 b&amp;c) over Art 14, 19, and 31. Tried to make DPSPs superior to all FRs.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-year">1980 — Minerva Mills</div>
+        <div class="tl-text"><strong>Minerva Mills v Union of India:</strong> SC struck down the 42nd Amendment extension. Restored balance — harmony between FRs and DPSP is part of the Basic Structure. Neither can be made absolutely superior to the other.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-year">Present — Harmonious Interpretation</div>
+        <div class="tl-text">Courts now apply <strong>harmonious construction</strong> — read FRs and DPSPs together; laws reasonably restricting FRs to implement DPSPs are upheld if they don't violate basic structure.</div>
+      </div>
+    </div>
+
+    <div class="ebox"><strong>Current Position (Post-Minerva Mills):</strong> The Constitution requires a harmonious relationship between FRs and DPSP. Neither is absolutely superior. Laws implementing DPSPs under Art 39(b)/(c) (Art 31C) can override Art 14 and Art 19, but all laws must respect the Basic Structure of the Constitution.</div>
+  </div>
+</div>
+
+<!-- ════════════════ AMENDMENTS ════════════════ -->
+<div class="sec" id="sec-amendments">
+  <div class="cp">
+    <h2>Key Constitutional Amendments Related to DPSP</h2>
+
+    <table class="dtable">
+      <thead><tr><th>Amendment</th><th>Year</th><th>DPSP-related Change</th></tr></thead>
+      <tbody>
+        <tr><td><strong>1st Amendment</strong></td><td>1951</td><td>Added 9th Schedule to protect land reform laws from FR challenge; added Art 31A (protecting agrarian reform laws) responding to Champakam case</td></tr>
+        <tr><td><strong>4th Amendment</strong></td><td>1955</td><td>Expanded 9th Schedule; further protected land acquisition laws; strengthened Art 31B</td></tr>
+        <tr><td><strong>17th Amendment</strong></td><td>1964</td><td>Added more land reform Acts to 9th Schedule; defined "estate" broadly</td></tr>
+        <tr><td><strong>24th Amendment</strong></td><td>1971</td><td>Asserted Parliament's right to amend any constitutional provision including FRs; response to Golaknath judgment</td></tr>
+        <tr><td><strong>25th Amendment</strong></td><td>1971</td><td>Inserted Art 31C: laws implementing Art 39(b) and 39(c) can override Art 14 and Art 19; eliminated judicial review of such laws (later struck down in part)</td></tr>
+        <tr><td><strong>42nd Amendment</strong></td><td>1976</td><td>Added Art 39A (free legal aid), Art 43A (workers in management), Art 48A (environment protection); extended Art 31C to ALL DPSPs — later struck down by Minerva Mills</td></tr>
+        <tr><td><strong>44th Amendment</strong></td><td>1978</td><td>Deleted Art 31 (right to property as FR); made right to property a legal right under Art 300A; added Art 38(2) on minimising inequalities</td></tr>
+        <tr><td><strong>86th Amendment</strong></td><td>2002</td><td>Changed Art 45 — Early Childhood Care and Education (below 6 years); inserted Art 21A — Right to Education (6-14 years) as Fundamental Right</td></tr>
+        <tr><td><strong>97th Amendment</strong></td><td>2011</td><td>Added Art 43B on promotion of cooperative societies</td></tr>
+      </tbody>
+    </table>
+
+    <div class="abox"><strong>42nd Amendment (1976) — "Mini Constitution":</strong> Most significant for DPSP — added three new directive principles (Art 39A, 43A, 48A), gave DPSPs primacy over FRs broadly (struck down in Minerva Mills). Also changed the word "sovereign democratic republic" to "sovereign socialist secular democratic republic" in the Preamble.</div>
+
+    <h3>New Directive Principles Added by Amendments</h3>
+    <ul>
+      <li><strong>Art 39A</strong> — Equal justice and free legal aid (42nd Amendment, 1976)</li>
+      <li><strong>Art 43A</strong> — Participation of workers in management (42nd Amendment, 1976)</li>
+      <li><strong>Art 43B</strong> — Promotion of cooperative societies (97th Amendment, 2011)</li>
+      <li><strong>Art 48A</strong> — Environmental protection (42nd Amendment, 1976)</li>
+      <li><strong>Art 38(2)</strong> — Minimise inequalities in income, status, opportunities (44th Amendment, 1978)</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ════════════════ LANDMARK CASES ════════════════ -->
+<div class="sec" id="sec-cases">
+  <div class="cp">
+    <h2>Landmark Cases on DPSP</h2>
+
+    <h3>1. State of Madras v Champakam Dorairajan (1951) <span class="eflag ft">TNPSC ★</span></h3>
+    <div class="rbox"><strong>Issue:</strong> Madras government's communal reservation in medical college seats (based on Art 46 DPSP). Champakam, a Brahmin woman, was denied admission.<br><strong>Held:</strong> Art 29(2) FR (no discrimination in state educational institutions) prevails over Art 46 DPSP. <strong>FRs are supreme over DPSPs.</strong><br><strong>Impact:</strong> Led to 1st Constitutional Amendment adding 9th Schedule.</div>
+
+    <h3>2. State of Bihar v Kameshwar Singh (1952)</h3>
+    <div class="hbox"><strong>Issue:</strong> Bihar Zamindari Abolition Act challenged.<br><strong>Held:</strong> Land reform laws implementing DPSPs valid even if they impair property right. Courts began balancing FRs with DPSPs in legislative context.</div>
+
+    <h3>3. I.C. Golaknath v State of Punjab (1967) <span class="eflag fu">UPSC</span></h3>
+    <div class="rbox"><strong>Issue:</strong> Can Parliament amend Fundamental Rights?<br><strong>Held:</strong> <strong>NO</strong> — Parliament cannot amend Part III (FRs). FRs are eternal and inalienable. A constitutional amendment is a "law" under Art 13, so cannot abridge FRs.<br><strong>Impact:</strong> Led to 24th Amendment overriding this judgment.</div>
+
+    <h3>4. Kesavananda Bharati v State of Kerala (1973) <span class="eflag fu">UPSC</span></h3>
+    <div class="abox"><strong>Issue:</strong> Validity of 24th, 25th, 29th amendments; Parliament's power to amend FRs.<br><strong>Held:</strong> Parliament CAN amend FRs but CANNOT destroy the <strong>Basic Structure</strong> of the Constitution. This is the most important constitutional case in Indian history.<br><strong>DPSP Impact:</strong> Art 31C (25th Amendment) upheld for Art 39(b)/(c) but the non-justiciability clause struck down. Harmony between FRs and DPSPs is part of Basic Structure.</div>
+
+    <h3>5. Minerva Mills Ltd. v Union of India (1980) <span class="eflag fu">UPSC</span></h3>
+    <div class="rbox"><strong>Issue:</strong> 42nd Amendment's extension of Art 31C to ALL DPSPs challenged.<br><strong>Held:</strong> The extension was UNCONSTITUTIONAL. <strong>Harmony and balance between FRs and DPSPs is part of the Basic Structure.</strong> Neither can be made superior to destroy the other. Any law giving absolute primacy to DPSPs over FRs violates basic structure.<br><strong>Key Quote:</strong> "Rights and Directives are like two wheels of a chariot."</div>
+
+    <h3>6. Waman Rao v Union of India (1981)</h3>
+    <div class="hbox"><strong>Issue:</strong> Validity of laws in 9th Schedule after Kesavananda.<br><strong>Held:</strong> Laws included in 9th Schedule before April 24, 1973 (Kesavananda date) are fully protected. Laws added AFTER that date can be examined on Basic Structure violation.</div>
+
+    <h3>7. Bandhua Mukti Morcha v Union of India (1984)</h3>
+    <div class="ebox"><strong>Issue:</strong> Bonded labour system violation.<br><strong>Held:</strong> Art 23 (FR against forced labour) + Art 39(e), 41, 42, 43 (DPSPs) read together to hold that the right to live with dignity includes protection from bonded labour. Showed how FRs and DPSPs can complement each other.</div>
+
+    <h3>8. Air India v Nergesh Meerza (1981) & Equal Pay Cases</h3>
+    <div class="hbox"><strong>Art 39(d) — Equal Pay for Equal Work:</strong> Though not a fundamental right by itself, courts have used Art 39(d) + Art 14 (equality) together to enforce equal pay as a constitutional right in service matters.</div>
+
+    <h3>9. M.C. Mehta Cases (Environmental Cases)</h3>
+    <div class="ebox"><strong>Art 48A</strong> (environment protection DPSP) has been used extensively in PIL cases. SC expanded Art 21 (right to life FR) to include right to clean environment, reading it with Art 48A and Art 51A(g) (fundamental duty).</div>
+
+    <h3>10. Mohd. Ahmed Khan v Shah Bano Begum (1985)</h3>
+    <div class="hbox"><strong>Art 44 — Uniform Civil Code:</strong> SC recommended UCC implementation but Parliament passed the Muslim Women (Protection of Rights on Divorce) Act 1986, limiting the judgment. Controversy over Art 44 continues as an unimplemented DPSP.</div>
+  </div>
+</div>
+
+<!-- ════════════════ SCHEMES (IMPLEMENTATION) ════════════════ -->
+<div class="sec" id="sec-schemes">
+  <div class="cp">
+    <h2>Implementation of DPSPs</h2>
+    <p>Though not enforceable by courts, DPSPs have been substantially implemented through legislation and government schemes over 75 years of independence.</p>
+
+    <h3>Laws/Acts Implementing DPSPs <span class="eflag ft">TNPSC ★</span></h3>
+    <table class="dtable">
+      <thead><tr><th>DPSP Article</th><th>Implementing Law/Policy</th></tr></thead>
+      <tbody>
+        <tr><td>Art 39(b)(c) — Equal distribution</td><td>Land Ceiling Acts, Zamindari Abolition Acts, PEPSU Land Alienation Act</td></tr>
+        <tr><td>Art 39(d) — Equal pay</td><td>Equal Remuneration Act 1976</td></tr>
+        <tr><td>Art 39(e) — Health of workers</td><td>Factories Act 1948, Mines Act 1952</td></tr>
+        <tr><td>Art 39(f) — Children's rights</td><td>Child Labour (Prohibition) Act 1986, POCSO Act 2012</td></tr>
+        <tr><td>Art 39A — Free legal aid</td><td>Legal Services Authorities Act 1987; NALSA</td></tr>
+        <tr><td>Art 40 — Panchayats</td><td>73rd Constitutional Amendment 1992 (Panchayati Raj)</td></tr>
+        <tr><td>Art 41 — Right to work</td><td>MGNREGS 2005 (Mahatma Gandhi NREGS)</td></tr>
+        <tr><td>Art 42 — Maternity relief</td><td>Maternity Benefit Act 1961; amended 2017 (26 weeks paid leave)</td></tr>
+        <tr><td>Art 43 — Living wage</td><td>Minimum Wages Act 1948; Code on Wages 2019</td></tr>
+        <tr><td>Art 44 — UCC</td><td>Goa (only state with UCC); Uniform Civil Code debate ongoing</td></tr>
+        <tr><td>Art 45 — Child education</td><td>Right to Education Act 2009 (Art 21A); ICDS for below 6 years</td></tr>
+        <tr><td>Art 46 — SC/ST welfare</td><td>SC/ST Prevention of Atrocities Act; reservation policies; Scholarship schemes</td></tr>
+        <tr><td>Art 47 — Nutrition/health</td><td>PDS, POSHAN Abhiyan; Prohibition Acts in some states</td></tr>
+        <tr><td>Art 48 — Animal husbandry</td><td>Various state cow protection laws; National Livestock Mission</td></tr>
+        <tr><td>Art 48A — Environment</td><td>Wildlife Protection Act 1972, Forest Conservation Act 1980, Environment Protection Act 1986</td></tr>
+        <tr><td>Art 50 — Judicial independence</td><td>Criminal Procedure Code separation; Collegium system for judiciary</td></tr>
+        <tr><td>Art 51 — International peace</td><td>Geneva Convention Act; UN Charter ratification; Foreign Policy</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Unimplemented / Partially Implemented DPSPs <span class="eflag fu">UPSC</span></h3>
+    <ul>
+      <li><strong>Art 44 (UCC):</strong> Most debated unimplemented DPSP — personal laws still vary by religion</li>
+      <li><strong>Art 43 (Living Wage):</strong> Minimum wage system exists but falls short of a true living wage for all workers</li>
+      <li><strong>Art 47 (Prohibition):</strong> Only a few states have prohibition (Gujarat); most states have not implemented</li>
+    </ul>
+
+    <div class="abox"><strong>Tamil Nadu Angle (TNPSC):</strong> Tamil Nadu has implemented several DPSPs significantly — Panchayati Raj (Art 40), free legal aid through TNSLA, TASMAC revenue vs prohibition debate (Art 47), comprehensive welfare schemes for SC/ST (Art 46), Mid-day Meal Scheme (Art 45/47).</div>
+  </div>
+</div>
+
+<!-- ════════════════ MCQ ════════════════ -->
+<div class="sec" id="sec-mcq">
+  <div class="sh"><h2>MCQ Practice</h2><p>Topic-wise questions with detailed explanations</p></div>
+  <div class="sbar"><span style="color:var(--text-muted)">🔍</span><input type="text" id="mcqSrch" placeholder="Search questions..." oninput="mcqFilter()"></div>
+  <div class="chips" id="mcqChips">
+    <button class="chip active" onclick="mcqTag(this,'all')">All</button>
+    <button class="chip" onclick="mcqTag(this,'intro')">Basics</button>
+    <button class="chip" onclick="mcqTag(this,'articles')">Articles</button>
+    <button class="chip" onclick="mcqTag(this,'cases')">Cases</button>
+    <button class="chip" onclick="mcqTag(this,'amendments')">Amendments</button>
+    <button class="chip" onclick="mcqTag(this,'tnpsc')">TNPSC ★</button>
+    <button class="chip" onclick="mcqTag(this,'upsc')">UPSC</button>
+  </div>
+  <div id="mcqBox"></div>
+</div>
+
+<!-- ════════════════ FLASHCARDS ════════════════ -->
+<div class="sec" id="sec-flashcards">
+  <div class="sh"><h2>Flashcards</h2><p>Click to flip • Rate your recall • Shuffle for variety</p></div>
+  <div class="fc-arena">
+    <div class="fc-ctr">Card <span id="fcCur">1</span> of <span id="fcTot">1</span></div>
+    <div class="fc-wrap">
+      <div class="fc" id="fcCard" onclick="fcFlip()">
+        <div class="fc-face fc-front">
+          <div class="fc-lbl lbl-f">CONCEPT — tap to reveal</div>
+          <div class="fc-q" id="fcQ">Loading...</div>
+          <div class="fc-h" id="fcH"></div>
+        </div>
+        <div class="fc-face fc-back">
+          <div class="fc-lbl lbl-b">ANSWER</div>
+          <div class="fc-a" id="fcA">Loading...</div>
+          <div class="fc-cat" id="fcCat"></div>
+        </div>
+      </div>
+    </div>
+    <div class="diff-btns" id="fcDiff" style="display:none">
+      <button class="db de" onclick="fcRate('easy')">😊 Easy</button>
+      <button class="db dm" onclick="fcRate('medium')">🤔 Medium</button>
+      <button class="db dh" onclick="fcRate('hard')">😰 Hard</button>
+    </div>
+    <div class="fc-ctl">
+      <button class="btn btn-ghost" onclick="fcPrev()">← Prev</button>
+      <button class="btn btn-primary" onclick="fcNext()">Next →</button>
+      <button class="btn btn-ghost" onclick="fcShuffle()">🔀 Shuffle</button>
+    </div>
+    <div class="fc-stats">
+      <div class="fs" style="color:var(--emerald)">✅ <span id="fcE">0</span> Easy</div>
+      <div class="fs" style="color:var(--amber)">⚡ <span id="fcM">0</span> Medium</div>
+      <div class="fs" style="color:var(--rose)">🔁 <span id="fcH2">0</span> Hard</div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════ MOCK TEST ════════════════ -->
+<div class="sec" id="sec-mocktest">
+  <div id="mSetup">
+    <div class="mock-setup">
+      <h2>Mock Test</h2>
+      <p>Exam-simulation mode with timer, scoring, and detailed grade feedback.</p>
+      <div style="text-align:left;margin-bottom:10px;font-size:0.82rem;font-weight:700;color:var(--text-muted)">CHOOSE QUESTIONS</div>
+      <div class="mo-grid">
+        <div class="mo sel" onclick="mSel(this,10)"><div class="mn">10</div><div class="ml">Quick</div></div>
+        <div class="mo" onclick="mSel(this,20)"><div class="mn">20</div><div class="ml">Standard</div></div>
+        <div class="mo" onclick="mSel(this,30)"><div class="mn">30</div><div class="ml">Full</div></div>
+        <div class="mo" onclick="mSel(this,50)"><div class="mn">50</div><div class="ml">Challenge</div></div>
+      </div>
+      <button class="btn btn-primary" style="width:100%;padding:11px" onclick="mStart()">Start Test →</button>
+      <div style="margin-top:10px;font-size:0.78rem;color:var(--text-muted)">⏱ 1 minute per question</div>
+    </div>
+  </div>
+  <div id="mActive" style="display:none" class="cp" style="max-width:700px">
+    <div class="mock-hdr">
+      <div><div class="mock-qc">Q<span id="mQN">1</span>/<span id="mTot">10</span></div></div>
+      <div class="mock-pw"><div class="prog-bg"><div class="prog-fill" id="mProg" style="width:0%"></div></div></div>
+      <div class="mock-timer" id="mTimer">10:00</div>
+    </div>
+    <div id="mQuestion"></div>
+    <div style="display:flex;gap:10px;margin-top:14px;justify-content:space-between">
+      <button class="btn btn-ghost" onclick="mSkip()">Skip →</button>
+      <button class="btn btn-rose" onclick="mEnd()">End Test</button>
+    </div>
+  </div>
+  <div id="mResult" style="display:none">
+    <div class="mock-result">
+      <h2>Test Complete!</h2>
+      <div class="sc-circle">
+        <div class="sc-pct" id="rPct">0%</div>
+        <div class="sc-sub">Score</div>
+      </div>
+      <div class="sc-details">
+        <div class="sc-d"><div class="sdn" style="color:var(--emerald)" id="rC">0</div><div class="sdl">Correct</div></div>
+        <div class="sc-d"><div class="sdn" style="color:var(--rose)" id="rW">0</div><div class="sdl">Wrong</div></div>
+        <div class="sc-d"><div class="sdn" style="color:var(--text-muted)" id="rS">0</div><div class="sdl">Skipped</div></div>
+      </div>
+      <div id="rGrade" style="font-size:1rem;font-weight:700;margin-bottom:20px;color:var(--text-dim)"></div>
+      <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
+        <button class="btn btn-primary" onclick="mReset()">Try Again</button>
+        <button class="btn btn-ghost" onclick="go('mcq')">Review MCQs</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════ DIAGRAMS ════════════════ -->
+<div class="sec" id="sec-diagrams">
+  <div class="sh"><h2>Visual Diagrams</h2><p>Key concepts visualised for quick retention</p></div>
+
+  <!-- Structure Diagram -->
+  <div class="dia-wrap">
+    <div class="dia-title">📋 Structure of Part IV — DPSP</div>
+    <svg class="dsvg" viewBox="0 0 700 320" xmlns="http://www.w3.org/2000/svg">
+      <rect x="230" y="10" width="240" height="48" rx="9" fill="rgba(99,102,241,0.18)" stroke="#6366f1" stroke-width="1.5"/>
+      <text x="350" y="30" text-anchor="middle" fill="#6366f1" font-size="13" font-weight="700" font-family="DM Sans,sans-serif">Directive Principles of</text>
+      <text x="350" y="48" text-anchor="middle" fill="#6366f1" font-size="13" font-weight="700" font-family="DM Sans,sans-serif">State Policy (Part IV)</text>
+
+      <line x1="350" y1="58" x2="130" y2="110" stroke="#3a4a6a" stroke-width="1.5"/>
+      <line x1="350" y1="58" x2="350" y2="110" stroke="#3a4a6a" stroke-width="1.5"/>
+      <line x1="350" y1="58" x2="570" y2="110" stroke="#3a4a6a" stroke-width="1.5"/>
+
+      <!-- Socialist -->
+      <rect x="20" y="110" width="220" height="44" rx="8" fill="rgba(16,185,129,0.15)" stroke="#10b981" stroke-width="1.5"/>
+      <text x="130" y="128" text-anchor="middle" fill="#10b981" font-size="12" font-weight="700" font-family="DM Sans,sans-serif">Socialist Principles</text>
+      <text x="130" y="145" text-anchor="middle" fill="#94a3b8" font-size="10" font-family="DM Sans,sans-serif">Art 38,39,39A,41,42,43,43A,43B,47</text>
+
+      <!-- Gandhian -->
+      <rect x="240" y="110" width="220" height="44" rx="8" fill="rgba(245,158,11,0.15)" stroke="#f59e0b" stroke-width="1.5"/>
+      <text x="350" y="128" text-anchor="middle" fill="#f59e0b" font-size="12" font-weight="700" font-family="DM Sans,sans-serif">Gandhian Principles</text>
+      <text x="350" y="145" text-anchor="middle" fill="#94a3b8" font-size="10" font-family="DM Sans,sans-serif">Art 40, 43, 43B, 46, 47, 48</text>
+
+      <!-- Liberal -->
+      <rect x="460" y="110" width="220" height="44" rx="8" fill="rgba(56,189,248,0.15)" stroke="#38bdf8" stroke-width="1.5"/>
+      <text x="570" y="128" text-anchor="middle" fill="#38bdf8" font-size="12" font-weight="700" font-family="DM Sans,sans-serif">Liberal-Intellectual</text>
+      <text x="570" y="145" text-anchor="middle" fill="#94a3b8" font-size="10" font-family="DM Sans,sans-serif">Art 44,45,48,48A,49,50,51</text>
+
+      <!-- Bottom row -->
+      <line x1="130" y1="154" x2="130" y2="196" stroke="#3a4a6a" stroke-width="1.2"/>
+      <line x1="350" y1="154" x2="350" y2="196" stroke="#3a4a6a" stroke-width="1.2"/>
+      <line x1="570" y1="154" x2="570" y2="196" stroke="#3a4a6a" stroke-width="1.2"/>
+
+      <rect x="30" y="196" width="200" height="38" rx="6" fill="#131c2e" stroke="#2a3550"/>
+      <text x="130" y="213" text-anchor="middle" fill="#e2e8f0" font-size="10" font-family="DM Sans,sans-serif">Welfare State Goal</text>
+      <text x="130" y="227" text-anchor="middle" fill="#94a3b8" font-size="9" font-family="DM Sans,sans-serif">Social &amp; Economic Justice</text>
+
+      <rect x="250" y="196" width="200" height="38" rx="6" fill="#131c2e" stroke="#2a3550"/>
+      <text x="350" y="213" text-anchor="middle" fill="#e2e8f0" font-size="10" font-family="DM Sans,sans-serif">Constructive Programme</text>
+      <text x="350" y="227" text-anchor="middle" fill="#94a3b8" font-size="9" font-family="DM Sans,sans-serif">Village-centric development</text>
+
+      <rect x="470" y="196" width="200" height="38" rx="6" fill="#131c2e" stroke="#2a3550"/>
+      <text x="570" y="213" text-anchor="middle" fill="#e2e8f0" font-size="10" font-family="DM Sans,sans-serif">Individual Liberty</text>
+      <text x="570" y="227" text-anchor="middle" fill="#94a3b8" font-size="9" font-family="DM Sans,sans-serif">Political Democracy</text>
+
+      <text x="350" y="280" text-anchor="middle" fill="#475569" font-size="10" font-family="DM Sans,sans-serif">Borrowed from: Irish Constitution (1937) · Inspired by: Spanish Constitution</text>
+      <text x="350" y="298" text-anchor="middle" fill="#475569" font-size="10" font-family="DM Sans,sans-serif">Nature: Non-justiciable · Constitutional Basis: Article 37</text>
+    </svg>
+  </div>
+
+  <!-- FR vs DPSP diagram -->
+  <div class="dia-wrap">
+    <div class="dia-title">⚔ FR vs DPSP — Conflict &amp; Resolution</div>
+    <svg class="dsvg" viewBox="0 0 700 220" xmlns="http://www.w3.org/2000/svg">
+      <rect x="20" y="20" width="200" height="160" rx="9" fill="rgba(244,63,94,0.08)" stroke="#f43f5e" stroke-width="1.5"/>
+      <text x="120" y="42" text-anchor="middle" fill="#f43f5e" font-size="12" font-weight="700" font-family="DM Sans,sans-serif">Fundamental Rights</text>
+      <text x="120" y="60" text-anchor="middle" fill="#94a3b8" font-size="9" font-family="DM Sans,sans-serif">Part III · Art 12-35</text>
+      <text x="120" y="82" text-anchor="middle" fill="#94a3b8" font-size="9.5" font-family="DM Sans,sans-serif">✓ Justiciable</text>
+      <text x="120" y="98" text-anchor="middle" fill="#94a3b8" font-size="9.5" font-family="DM Sans,sans-serif">✓ Negative rights</text>
+      <text x="120" y="114" text-anchor="middle" fill="#94a3b8" font-size="9.5" font-family="DM Sans,sans-serif">✓ Individual-oriented</text>
+      <text x="120" y="130" text-anchor="middle" fill="#94a3b8" font-size="9.5" font-family="DM Sans,sans-serif">✓ Political democracy</text>
+      <text x="120" y="146" text-anchor="middle" fill="#94a3b8" font-size="9.5" font-family="DM Sans,sans-serif">✓ Borrowed: USA</text>
+      <text x="120" y="165" text-anchor="middle" fill="#94a3b8" font-size="9.5" font-family="DM Sans,sans-serif">✓ No legislation needed</text>
+
+      <rect x="480" y="20" width="200" height="160" rx="9" fill="rgba(99,102,241,0.1)" stroke="#6366f1" stroke-width="1.5"/>
+      <text x="580" y="42" text-anchor="middle" fill="#6366f1" font-size="12" font-weight="700" font-family="DM Sans,sans-serif">DPSP</text>
+      <text x="580" y="60" text-anchor="middle" fill="#94a3b8" font-size="9" font-family="DM Sans,sans-serif">Part IV · Art 36-51</text>
+      <text x="580" y="82" text-anchor="middle" fill="#94a3b8" font-size="9.5" font-family="DM Sans,sans-serif">✗ Non-justiciable</text>
+      <text x="580" y="98" text-anchor="middle" fill="#94a3b8" font-size="9.5" font-family="DM Sans,sans-serif">✗ Positive rights</text>
+      <text x="580" y="114" text-anchor="middle" fill="#94a3b8" font-size="9.5" font-family="DM Sans,sans-serif">✗ Community-oriented</text>
+      <text x="580" y="130" text-anchor="middle" fill="#94a3b8" font-size="9.5" font-family="DM Sans,sans-serif">✗ Socio-econ democracy</text>
+      <text x="580" y="146" text-anchor="middle" fill="#94a3b8" font-size="9.5" font-family="DM Sans,sans-serif">✗ Borrowed: Ireland</text>
+      <text x="580" y="165" text-anchor="middle" fill="#94a3b8" font-size="9.5" font-family="DM Sans,sans-serif">✗ Legislation required</text>
+
+      <rect x="248" y="60" width="204" height="80" rx="9" fill="rgba(245,158,11,0.12)" stroke="#f59e0b" stroke-width="1.5"/>
+      <text x="350" y="82" text-anchor="middle" fill="#f59e0b" font-size="11" font-weight="700" font-family="DM Sans,sans-serif">HARMONY</text>
+      <text x="350" y="99" text-anchor="middle" fill="#94a3b8" font-size="9" font-family="DM Sans,sans-serif">Minerva Mills (1980)</text>
+      <text x="350" y="115" text-anchor="middle" fill="#94a3b8" font-size="9" font-family="DM Sans,sans-serif">Basic Structure Doctrine</text>
+      <text x="350" y="131" text-anchor="middle" fill="#f59e0b" font-size="9" font-family="DM Sans,sans-serif">"Two wheels of a chariot"</text>
+      <line x1="220" y1="100" x2="248" y2="100" stroke="#f59e0b" stroke-width="1.5" stroke-dasharray="4,2"/>
+      <line x1="452" y1="100" x2="480" y2="100" stroke="#f59e0b" stroke-width="1.5" stroke-dasharray="4,2"/>
+    </svg>
+  </div>
+
+  <!-- Art 31C evolution -->
+  <div class="dia-wrap">
+    <div class="dia-title">📜 Evolution of Article 31C</div>
+    <svg class="dsvg" viewBox="0 0 700 160" xmlns="http://www.w3.org/2000/svg">
+      <rect x="10" y="40" width="155" height="70" rx="8" fill="rgba(16,185,129,0.1)" stroke="#10b981" stroke-width="1.5"/>
+      <text x="88" y="62" text-anchor="middle" fill="#10b981" font-size="10" font-weight="700" font-family="DM Sans,sans-serif">25th Amendment</text>
+      <text x="88" y="78" text-anchor="middle" fill="#94a3b8" font-size="9" font-family="DM Sans,sans-serif">1971</text>
+      <text x="88" y="94" text-anchor="middle" fill="#94a3b8" font-size="9" font-family="DM Sans,sans-serif">Art 31C: Laws for</text>
+      <text x="88" y="108" text-anchor="middle" fill="#94a3b8" font-size="9" font-family="DM Sans,sans-serif">Art 39(b)/(c) protected</text>
+      <line x1="165" y1="75" x2="200" y2="75" stroke="#3a4a6a" stroke-width="1.5" marker-end="url(#arr)"/>
+      <rect x="200" y="40" width="155" height="70" rx="8" fill="rgba(245,158,11,0.1)" stroke="#f59e0b" stroke-width="1.5"/>
+      <text x="278" y="62" text-anchor="middle" fill="#f59e0b" font-size="10" font-weight="700" font-family="DM Sans,sans-serif">Kesavananda (1973)</text>
+      <text x="278" y="78" text-anchor="middle" fill="#94a3b8" font-size="9" font-family="DM Sans,sans-serif">Upheld Art 31C for</text>
+      <text x="278" y="94" text-anchor="middle" fill="#94a3b8" font-size="9" font-family="DM Sans,sans-serif">39(b)/(c); struck non-</text>
+      <text x="278" y="108" text-anchor="middle" fill="#94a3b8" font-size="9" font-family="DM Sans,sans-serif">justiciability clause</text>
+      <line x1="355" y1="75" x2="390" y2="75" stroke="#3a4a6a" stroke-width="1.5" marker-end="url(#arr)"/>
+      <rect x="390" y="40" width="155" height="70" rx="8" fill="rgba(99,102,241,0.12)" stroke="#6366f1" stroke-width="1.5"/>
+      <text x="468" y="62" text-anchor="middle" fill="#6366f1" font-size="10" font-weight="700" font-family="DM Sans,sans-serif">42nd Amendment</text>
+      <text x="468" y="78" text-anchor="middle" fill="#94a3b8" font-size="9" font-family="DM Sans,sans-serif">1976</text>
+      <text x="468" y="94" text-anchor="middle" fill="#94a3b8" font-size="9" font-family="DM Sans,sans-serif">Extended to ALL</text>
+      <text x="468" y="108" text-anchor="middle" fill="#94a3b8" font-size="9" font-family="DM Sans,sans-serif">DPSPs</text>
+      <line x1="545" y1="75" x2="580" y2="75" stroke="#3a4a6a" stroke-width="1.5" marker-end="url(#arr)"/>
+      <rect x="580" y="40" width="115" height="70" rx="8" fill="rgba(244,63,94,0.1)" stroke="#f43f5e" stroke-width="1.5"/>
+      <text x="638" y="62" text-anchor="middle" fill="#f43f5e" font-size="10" font-weight="700" font-family="DM Sans,sans-serif">Minerva Mills</text>
+      <text x="638" y="78" text-anchor="middle" fill="#94a3b8" font-size="9" font-family="DM Sans,sans-serif">1980</text>
+      <text x="638" y="94" text-anchor="middle" fill="#94a3b8" font-size="9" font-family="DM Sans,sans-serif">Extension struck</text>
+      <text x="638" y="108" text-anchor="middle" fill="#94a3b8" font-size="9" font-family="DM Sans,sans-serif">down; Harmony!</text>
+      <defs><marker id="arr" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#3a4a6a"/></marker></defs>
+    </svg>
+  </div>
+</div>
+
+  </div><!-- /content -->
+</div><!-- /main -->
+</div><!-- /app -->
+
+<script>
+// ═══════════════════════════════════ DATA ═══════════════════════════════════
+
+const ARTICLES = [
+  { n:'36', cat:'intro', ch:'Definition', txt:'Defines "State" for Part IV — same as Art 12.', key:false },
+  { n:'37', cat:'intro', ch:'Application of DPSPs', txt:'DPSPs are non-justiciable but fundamental in governance; duty of State to apply them in making laws.', key:true },
+  { n:'38', cat:'socialist', ch:'Welfare State', txt:'State to secure social order for welfare; minimise inequalities of income, status, facilities, opportunities (Art 38(2) added by 44th Amendment).', key:true },
+  { n:'39', cat:'socialist', ch:'Policy principles of State', txt:'(a) Adequate livelihood; (b) Equitable distribution of material resources; (c) No concentration of wealth; (d) Equal pay for equal work; (e) Health of workers; (f) Children\'s healthy development.', key:true },
+  { n:'39A', cat:'socialist', ch:'Equal Justice & Free Legal Aid', txt:'State to secure equal justice and provide free legal aid to ensure that opportunities for securing justice are not denied due to economic disability. (Added by 42nd Amendment).', key:true },
+  { n:'40', cat:'gandhian', ch:'Organisation of Village Panchayats', txt:'State to organise village panchayats and endow them with powers for self-government. Basis for 73rd Amendment (Panchayati Raj).', key:true },
+  { n:'41', cat:'socialist', ch:'Right to Work, Education, Public Assistance', txt:'Within limits of economic capacity, State to make provision for right to work, education, and public assistance in unemployment, old age, sickness.', key:false },
+  { n:'42', cat:'socialist', ch:'Just Conditions of Work & Maternity Relief', txt:'State to make provision for securing just and humane conditions of work and maternity relief.', key:false },
+  { n:'43', cat:'socialist', ch:'Living Wage for Workers', txt:'State to secure by legislation/economic organisation — living wage, decent standard of life, full leisure; promote cottage industries.', key:false },
+  { n:'43A', cat:'socialist', ch:'Workers\' Participation in Management', txt:'State to take steps to secure participation of workers in management of industries. (Added by 42nd Amendment, 1976).', key:false },
+  { n:'43B', cat:'gandhian', ch:'Promotion of Cooperative Societies', txt:'State to endeavour to promote voluntary formation, autonomous functioning of cooperative societies. (Added by 97th Amendment, 2011).', key:false },
+  { n:'44', cat:'liberal', ch:'Uniform Civil Code', txt:'State to endeavour to secure a Uniform Civil Code for the citizens throughout the territory of India.', key:true },
+  { n:'45', cat:'liberal', ch:'Early Childhood Care & Education', txt:'State to provide early childhood care and education for all children until age 6. (Changed by 86th Amendment — earlier was compulsory primary education for 6-14 years, now covered by Art 21A FR).', key:true },
+  { n:'46', cat:'gandhian', ch:'Educational & Economic Interests of SC/ST', txt:'State to promote educational and economic interests of weaker sections, especially SCs and STs, and protect them from social injustice and exploitation.', key:false },
+  { n:'47', cat:'gandhian', ch:'Duty to Raise Nutrition Level', txt:'State to raise nutrition level, standard of living; duty to bring about prohibition of consumption of intoxicating drinks and drugs injurious to health.', key:true },
+  { n:'48', cat:'gandhian', ch:'Organisation of Agriculture & Animal Husbandry', txt:'State to organise agriculture and animal husbandry on modern and scientific lines; prohibit slaughter of cows, calves, and other milch and draught cattle.', key:false },
+  { n:'48A', cat:'liberal', ch:'Protection & Improvement of Environment', txt:'State to protect and improve the environment and safeguard forests and wildlife. (Added by 42nd Amendment, 1976). Used extensively in environmental PILs.', key:true },
+  { n:'49', cat:'liberal', ch:'Protection of Monuments & National Importance', txt:'State to protect monuments, places and objects of artistic/historical/scientific importance and national importance from spoilation and destruction.', key:false },
+  { n:'50', cat:'liberal', ch:'Separation of Judiciary from Executive', txt:'State to take steps to separate judiciary from executive in public services of the State.', key:false },
+  { n:'51', cat:'liberal', ch:'Promotion of International Peace & Security', txt:'State to endeavour to: promote international peace; maintain just relations between nations; respect international law; encourage settlement of disputes by arbitration.', key:false },
+];
+
+const MCQ_DATA = [
+  { id:1, q:'DPSP is contained in which Part of the Indian Constitution?', opts:['Part III','Part IV','Part IVA','Part V'], ans:1, exp:'Directive Principles of State Policy are in Part IV (Articles 36–51) of the Constitution. Part III has Fundamental Rights, Part IVA has Fundamental Duties.', tags:['intro','tnpsc'] },
+  { id:2, q:'From which Constitution were DPSPs borrowed?', opts:['US Constitution','Australian Constitution','Irish Constitution','Canadian Constitution'], ans:2, exp:'DPSPs were borrowed from the Irish Constitution of 1937, which itself was inspired by the Spanish Constitution. Dr. B.R. Ambedkar acknowledged this borrowing.', tags:['intro','tnpsc'] },
+  { id:3, q:'Which article makes DPSPs non-justiciable but fundamental in governance?', opts:['Article 36','Article 37','Article 38','Article 39'], ans:1, exp:'Article 37 states: "The provisions contained in this Part shall not be enforceable by any court, but the principles therein laid down are nevertheless fundamental in the governance of the country."', tags:['intro','tnpsc'] },
+  { id:4, q:'Which among the following is NOT a Gandhian principle?', opts:['Article 40 (Village Panchayats)','Article 46 (SC/ST welfare)','Article 44 (Uniform Civil Code)','Article 48 (Cow slaughter prohibition)'], ans:2, exp:'Article 44 (Uniform Civil Code) is a Liberal-Intellectual principle, not a Gandhian principle. Gandhian principles include Art 40, 43, 43B, 46, 47, 48.', tags:['articles','tnpsc'] },
+  { id:5, q:'Article 39A (Free Legal Aid) was added by which Constitutional Amendment?', opts:['24th Amendment','25th Amendment','42nd Amendment','44th Amendment'], ans:2, exp:'Article 39A (Equal justice and free legal aid) was added by the 42nd Constitutional Amendment Act, 1976 — the most significant amendment for DPSPs.', tags:['amendments','tnpsc'] },
+  { id:6, q:'In which case did the Supreme Court first hold that Fundamental Rights prevail over DPSPs?', opts:['Golaknath Case','Champakam Dorairajan Case','Kesavananda Bharati Case','Minerva Mills Case'], ans:1, exp:'State of Madras v Champakam Dorairajan (1951) — SC held that Art 29(2) FR prevails over Art 46 DPSP. This led to the 1st Constitutional Amendment.', tags:['cases','tnpsc'] },
+  { id:7, q:'The "Basic Structure Doctrine" was propounded in which case?', opts:['Golaknath v State of Punjab (1967)','Indira Gandhi v Raj Narain (1975)','Kesavananda Bharati v State of Kerala (1973)','Minerva Mills v Union of India (1980)'], ans:2, exp:'Kesavananda Bharati v State of Kerala (1973) — 13-judge bench propounded the Basic Structure Doctrine. Parliament can amend any part of Constitution but cannot destroy its basic structure.', tags:['cases','upsc'] },
+  { id:8, q:'Which amendment gave primacy to ALL DPSPs over Fundamental Rights (later struck down)?', opts:['24th Amendment','25th Amendment','42nd Amendment','44th Amendment'], ans:2, exp:'The 42nd Amendment (1976) expanded Article 31C to give all DPSPs primacy over Art 14, 19. This was struck down by the Supreme Court in Minerva Mills case (1980) as violating Basic Structure.', tags:['amendments','upsc'] },
+  { id:9, q:'In Minerva Mills case (1980), the SC held that:', opts:['FRs are absolutely supreme over DPSPs','DPSPs are absolutely supreme over FRs','Harmony between FRs and DPSPs is part of Basic Structure','Parliament cannot amend DPSPs'], ans:2, exp:'Minerva Mills v Union of India (1980) — SC held that harmony and balance between FRs and DPSPs is itself part of the Basic Structure. Making DPSPs absolutely superior to FRs destroys this balance.', tags:['cases','upsc'] },
+  { id:10, q:'Article 40 (Village Panchayats) was implemented through which Constitutional Amendment?', opts:['42nd Amendment','72nd Amendment','73rd Amendment','74th Amendment'], ans:2, exp:'The 73rd Constitutional Amendment Act, 1992 implemented Art 40 (DPSP) by adding Part IX and establishing the Panchayati Raj system constitutionally.', tags:['articles','tnpsc'] },
+  { id:11, q:'Article 48A (Environmental Protection) was added by which amendment?', opts:['40th Amendment','42nd Amendment','44th Amendment','86th Amendment'], ans:1, exp:'Article 48A was inserted by the 42nd Constitutional Amendment Act, 1976. It directs the State to protect and improve the environment and safeguard forests and wildlife.', tags:['amendments','tnpsc'] },
+  { id:12, q:'Which DPSP article directs equal pay for equal work for men and women?', opts:['Article 39(c)','Article 39(d)','Article 39(e)','Article 42'], ans:1, exp:'Article 39(d) directs that there is equal pay for equal work for both men and women. This has been used by courts along with Art 14 to enforce equal pay in service matters.', tags:['articles','tnpsc'] },
+  { id:13, q:'Which article was amended by the 86th Amendment Act, 2002 regarding DPSPs?', opts:['Article 39A','Article 43B','Article 45','Article 48A'], ans:2, exp:'Article 45 was amended by the 86th Amendment (2002). Earlier it provided free compulsory education for 6-14 years (now moved to Art 21A as FR). Now Art 45 covers early childhood care for under-6 years.', tags:['amendments','tnpsc'] },
+  { id:14, q:'Article 43B (Promotion of cooperative societies) was added by which amendment?', opts:['42nd Amendment','73rd Amendment','86th Amendment','97th Amendment'], ans:3, exp:'Article 43B was inserted by the 97th Constitutional Amendment Act, 2011. It directs the State to promote voluntary formation, autonomous functioning, and democratic control of cooperative societies.', tags:['amendments','tnpsc'] },
+  { id:15, q:'Which DPSP is related to the "Gram Swaraj" concept of Mahatma Gandhi?', opts:['Article 38','Article 39','Article 40','Article 41'], ans:2, exp:'Article 40 (Organisation of Village Panchayats) reflects Mahatma Gandhi\'s concept of Gram Swaraj — village self-government. It directed the State to organise village panchayats and give them self-governing powers.', tags:['articles','tnpsc'] },
+  { id:16, q:'In Champakam Dorairajan case (1951), the dispute was about:', opts:['Zamindari abolition affecting property rights','Communal reservation in medical college admission','Workers\' right to strike','Equal pay for women employees'], ans:1, exp:'Champakam Dorairajan (a Brahmin woman) was denied admission to medical college due to Madras government\'s communal reservation (implementing Art 46 DPSP). SC held Art 29(2) FR prevails over Art 46 DPSP.', tags:['cases','tnpsc'] },
+  { id:17, q:'What was the Golaknath case judgment (1967) regarding?', opts:['DPSPs cannot be enforced by courts','Parliament cannot amend Fundamental Rights','Basic Structure cannot be amended','DPSPs have primacy over FRs'], ans:1, exp:'In Golaknath v State of Punjab (1967), the SC held by 6:5 majority that Parliament CANNOT amend Fundamental Rights. An amendment is a "law" under Art 13. This was later overridden by the 24th Amendment and Kesavananda case.', tags:['cases','upsc'] },
+  { id:18, q:'Which DPSP requires the State to promote international peace and security?', opts:['Article 48','Article 49','Article 50','Article 51'], ans:3, exp:'Article 51 directs the State to promote international peace and security, maintain just relations between nations, respect international law and treaty obligations, and encourage settlement of disputes by arbitration.', tags:['articles','tnpsc'] },
+  { id:19, q:'Granville Austin described FRs and DPSPs as:', opts:['Two wheels of a chariot','Conscience of the Constitution','Twin pillars of democracy','Seamless web'], ans:1, exp:'Granville Austin (constitutional historian) described Fundamental Rights and DPSPs together as the "Conscience of the Constitution" — forming an integrated scheme. He also described them as a "seamless web."', tags:['intro','upsc'] },
+  { id:20, q:'Which among the following is a Liberal-Intellectual DPSP?', opts:['Article 40 (Panchayats)','Article 46 (SC/ST welfare)','Article 47 (Nutrition & prohibition)','Article 50 (Separation of judiciary from executive)'], ans:3, exp:'Article 50 (Separation of judiciary from executive) is a Liberal-Intellectual principle. Art 40 and 46 are Gandhian; Art 47 is shared between Gandhian and Socialist categories.', tags:['articles','tnpsc'] },
+  { id:21, q:'Which 9th Schedule was created primarily to protect:', opts:['Anti-corruption laws','Land reform laws implementing DPSPs from FR challenge','Environmental protection laws','Laws implementing UCC'], ans:1, exp:'The 9th Schedule was added by the 1st Constitutional Amendment (1951) to protect land reform laws (implementing Art 39 DPSP) from challenge on grounds of violating Fundamental Rights (especially property right under Art 31).', tags:['amendments','upsc'] },
+  { id:22, q:'Article 31C was inserted by which Amendment?', opts:['24th Amendment','25th Amendment','42nd Amendment','44th Amendment'], ans:1, exp:'Article 31C was inserted by the 25th Constitutional Amendment Act, 1971. It protected laws giving effect to Art 39(b) and 39(c) from challenge under Art 14 and Art 19. The 42nd Amendment extended this to all DPSPs (later struck down).', tags:['amendments','upsc'] },
+  { id:23, q:'MGNREGS (Mahatma Gandhi NREGS) implements which DPSP?', opts:['Article 38','Article 39','Article 41','Article 43'], ans:2, exp:'MGNREGS (2005) implements Article 41 DPSP which directs the State to make provision for the right to work. It guarantees 100 days of wage employment to rural households.', tags:['articles','tnpsc'] },
+  { id:24, q:'Equal Remuneration Act 1976 implements which DPSP?', opts:['Article 39(c)','Article 39(d)','Article 41','Article 42'], ans:1, exp:'The Equal Remuneration Act, 1976 implements Article 39(d) DPSP which mandates equal pay for equal work for both men and women.', tags:['articles','tnpsc'] },
+  { id:25, q:'Which DPSP provides for separation of judiciary from executive?', opts:['Article 48','Article 49','Article 50','Article 51'], ans:2, exp:'Article 50 directs the State to take steps to separate judiciary from executive in public services. This is a Liberal-Intellectual principle ensuring judicial independence.', tags:['articles','tnpsc'] },
+  { id:26, q:'The Legal Services Authorities Act 1987 implements which DPSP?', opts:['Article 38','Article 39','Article 39A','Article 41'], ans:2, exp:'Legal Services Authorities Act 1987 (establishing NALSA — National Legal Services Authority) implements Article 39A DPSP on equal justice and free legal aid.', tags:['articles','tnpsc'] },
+  { id:27, q:'Which DPSP is considered the most controversial and yet to be implemented?', opts:['Article 40','Article 44','Article 45','Article 51'], ans:1, exp:'Article 44 (Uniform Civil Code) is the most controversial and largely unimplemented DPSP. Personal laws still differ by religion. Goa is the only state with a UCC. Shah Bano case (1985) highlighted this controversy.', tags:['articles','upsc'] },
+  { id:28, q:'Who said "DPSPs are like a cheque payable to the bank at its convenience"?', opts:['Dr. B.R. Ambedkar','K.T. Shah','Jawaharlal Nehru','Sir Alladi Krishnaswami Ayyar'], ans:1, exp:'K.T. Shah, a member of the Constituent Assembly, criticised DPSPs saying they were "like a cheque on a bank payable only when the resources of the bank permit." He felt they were too vague and non-enforceable.', tags:['intro','upsc'] },
+  { id:29, q:'Which case involved DPSP Art 44 (UCC) prominently?', opts:['Champakam Dorairajan (1951)','Kesavananda Bharati (1973)','Mohd. Ahmed Khan v Shah Bano Begum (1985)','Minerva Mills (1980)'], ans:2, exp:'Mohd. Ahmed Khan v Shah Bano Begum (1985) — SC held Shah Bano (a divorced Muslim woman) was entitled to maintenance under CrPC. SC also commented on desirability of UCC (Art 44). This triggered major political controversy.', tags:['cases','upsc'] },
+  { id:30, q:'The Maternity Benefit Act implements which DPSP?', opts:['Article 39(e)','Article 41','Article 42','Article 43'], ans:2, exp:'Article 42 directs the State to make provision for securing just and humane conditions of work and for maternity relief. The Maternity Benefit Act 1961 (amended 2017 — 26 weeks paid leave) implements Art 42.', tags:['articles','tnpsc'] },
+  { id:31, q:'Which DPSPs were added by the 42nd Constitutional Amendment?', opts:['Art 40, 43B','Art 39A, 43A, 48A','Art 44, 45, 50','Art 38(2), 51A'], ans:1, exp:'The 42nd Amendment (1976) added three new DPSPs: Art 39A (free legal aid), Art 43A (workers in management), and Art 48A (environmental protection).', tags:['amendments','upsc'] },
+  { id:32, q:'Article 47 of the Constitution relates to:', opts:['Equal pay for equal work','Right to work','Raising nutrition levels and prohibition of alcohol','Promotion of village panchayats'], ans:2, exp:'Article 47 directs the State to raise the level of nutrition and standard of living; and to bring about prohibition of consumption of intoxicating drinks and drugs injurious to health.', tags:['articles','tnpsc'] },
+  { id:33, q:'Which is the ONLY state in India that has implemented a Uniform Civil Code?', opts:['Kerala','Tamil Nadu','Goa','Rajasthan'], ans:2, exp:'Goa is the only state in India with a Uniform Civil Code (Goa Civil Code) — inherited from Portuguese rule (Goa Family Law). All citizens irrespective of religion are governed by common civil law.', tags:['articles','tnpsc'] },
+  { id:34, q:'Article 48A (Environmental Protection DPSP) has been used by SC in PIL cases along with which Fundamental Right?', opts:['Article 19 (Freedom of speech)','Article 21 (Right to Life)','Article 14 (Equality)','Article 32 (Right to Constitutional Remedies)'], ans:1, exp:'The SC has expanded Art 21 (Right to Life) to include the right to clean environment, reading it with Art 48A (DPSP) and Art 51A(g) (Fundamental Duty to protect environment). MC Mehta cases exemplify this.', tags:['articles','upsc'] },
+  { id:35, q:'Which of the following DPSPs belongs to the Socialist category?', opts:['Article 44 (UCC)','Article 40 (Panchayats)','Article 43A (Workers in management)','Article 50 (Separation of judiciary)'], ans:2, exp:'Article 43A (workers\' participation in management) is a Socialist DPSP, added by 42nd Amendment. Art 44 is Liberal, Art 40 is Gandhian, Art 50 is Liberal.', tags:['articles','tnpsc'] },
+];
+
+const FC_DATA = [
+  { q:'What does DPSP stand for and where is it in the Constitution?', a:'Directive Principles of State Policy — Part IV, Articles 36–51 of the Indian Constitution.', h:'Part IV · Art 36-51', cat:'📌 Basics' },
+  { q:'From which Constitution were DPSPs borrowed?', a:'Irish Constitution (1937), which was itself inspired by the Spanish Constitution.', h:'Ireland → India', cat:'📌 Basics' },
+  { q:'What does Article 37 state?', a:'DPSPs are non-justiciable (not enforceable by courts) but fundamental in governance. It is the duty of the State to apply them in lawmaking.', h:'Non-justiciable but fundamental', cat:'📌 Basics' },
+  { q:'What is the key difference between FR and DPSP in terms of enforceability?', a:'FRs are justiciable (enforceable by courts). DPSPs are non-justiciable — no court can compel the government to implement them.', h:'Courts can enforce FRs, not DPSPs', cat:'⚖️ FR vs DPSP' },
+  { q:'Name the 3 categories of DPSP', a:'1. Socialist Principles, 2. Gandhian Principles, 3. Liberal-Intellectual Principles', h:'Three broad groups', cat:'🗂️ Categories' },
+  { q:'Which articles are Gandhian Principles? (Key ones)', a:'Art 40 (Panchayats), Art 43 (cottage industries), Art 43B (cooperatives), Art 46 (SC/ST welfare), Art 47 (nutrition & prohibition), Art 48 (animal husbandry, cow slaughter prohibition)', h:'40, 43, 43B, 46, 47, 48', cat:'🌿 Gandhian' },
+  { q:'Which articles are Liberal-Intellectual Principles?', a:'Art 44 (UCC), Art 45 (child education), Art 48 (modern agriculture), Art 48A (environment), Art 49 (monuments), Art 50 (judiciary-executive separation), Art 51 (international peace)', h:'44, 45, 48A, 49, 50, 51', cat:'📚 Liberal' },
+  { q:'What is Article 39A?', a:'Equal justice and free legal aid. State to ensure opportunities for securing justice not denied due to economic disability. Added by 42nd Amendment 1976. Implemented by Legal Services Authorities Act 1987 / NALSA.', h:'Free legal aid — 42nd Amendment', cat:'⚡ Key Articles' },
+  { q:'What is Article 40?', a:'Organisation of village panchayats. State to organise panchayats and endow them with powers for self-government. Basis for 73rd Constitutional Amendment (1992) — Panchayati Raj.', h:'Panchayats — Gram Swaraj', cat:'⚡ Key Articles' },
+  { q:'What is Article 44?', a:'Uniform Civil Code — State to endeavour to secure a UCC throughout India. Most controversial and largely unimplemented DPSP. Goa is the only state with a UCC.', h:'UCC — most debated DPSP', cat:'⚡ Key Articles' },
+  { q:'What is Article 48A?', a:'Environmental protection — State to protect and improve environment; safeguard forests and wildlife. Added by 42nd Amendment 1976. Used in SC environmental PILs with Art 21.', h:'Environment — 42nd Amendment', cat:'⚡ Key Articles' },
+  { q:'What did the 42nd Amendment (1976) add to DPSPs?', a:'Three new articles: Art 39A (free legal aid), Art 43A (workers in management), Art 48A (environment protection). Also extended Art 31C to ALL DPSPs (later struck down by Minerva Mills).', h:'39A + 43A + 48A', cat:'📜 Amendments' },
+  { q:'What did the 97th Amendment (2011) add?', a:'Article 43B — promotion of voluntary formation and functioning of cooperative societies.', h:'Art 43B — Cooperatives', cat:'📜 Amendments' },
+  { q:'What did the 86th Amendment (2002) change about Art 45?', a:'Changed Art 45 to Early Childhood Care and Education for under-6 years. Compulsory education for 6-14 years was moved to Art 21A as a Fundamental Right (Right to Education).', h:'Under 6 = DPSP; 6-14 = FR (Art 21A)', cat:'📜 Amendments' },
+  { q:'Champakam Dorairajan Case (1951) — what was held?', a:'FRs prevail over DPSPs. Art 29(2) (FR — no discrimination in state educational institutions) overrides Art 46 (DPSP — welfare of SC/ST). Led to 1st Constitutional Amendment + 9th Schedule.', h:'FR > DPSP (1951)', cat:'⚖️ Cases' },
+  { q:'Golaknath Case (1967) — what was held?', a:'Parliament CANNOT amend Fundamental Rights. FRs are sacrosanct. An amendment is a "law" under Art 13. Led to 24th Constitutional Amendment.', h:'No FR amendment by Parliament', cat:'⚖️ Cases' },
+  { q:'Kesavananda Bharati Case (1973) — what was held?', a:'Parliament CAN amend FRs but CANNOT destroy the Basic Structure of the Constitution. Most important constitutional case. Upheld 24th Amendment. Harmony between FR and DPSP is part of Basic Structure.', h:'Basic Structure Doctrine', cat:'⚖️ Cases' },
+  { q:'Minerva Mills Case (1980) — what was held?', a:'Extension of Art 31C (by 42nd Amendment) to ALL DPSPs is unconstitutional. Harmony between FRs and DPSPs is part of Basic Structure. Neither can be made absolutely superior.', h:'"Two wheels of a chariot"', cat:'⚖️ Cases' },
+  { q:'What is Article 31C?', a:'Laws implementing Art 39(b)/(c) cannot be challenged on grounds of violating Art 14 or Art 19. Inserted by 25th Amendment (1971). Extended to ALL DPSPs by 42nd Amendment — extension struck down by Minerva Mills.', h:'Protection for Art 39(b)/(c) laws', cat:'⚖️ Cases' },
+  { q:'Which DPSP is implemented by MGNREGS?', a:'Article 41 — right to work. MGNREGS (2005) guarantees 100 days of wage employment to rural households.', h:'Art 41 → MGNREGS', cat:'🌿 Implementation' },
+  { q:'Which law implements Art 39(d) (equal pay)?', a:'Equal Remuneration Act 1976 — ensures equal pay for equal work for men and women.', h:'Equal Remuneration Act 1976', cat:'🌿 Implementation' },
+  { q:'Which DPSP did the 73rd Amendment (1992) implement?', a:'Article 40 — Organisation of Village Panchayats. The 73rd Amendment constitutionally established Panchayati Raj institutions (Part IX of Constitution).', h:'Art 40 → 73rd Amendment → Panchayati Raj', cat:'🌿 Implementation' },
+  { q:'What is the "9th Schedule" and why was it created?', a:'Added by 1st Amendment (1951) to protect land reform laws from Fundamental Rights challenge. Laws in 9th Schedule before April 24, 1973 are fully protected; post that date can be reviewed for Basic Structure.', h:'Shield for land reform laws', cat:'📜 Amendments' },
+  { q:'What does Article 38 direct?', a:'State to secure a social order for promotion of welfare of people — minimise inequalities of income, status, facilities, opportunities. Art 38(2) added by 44th Amendment to specifically address inequalities.', h:'Welfare state — social order', cat:'⚡ Key Articles' },
+  { q:'What does Article 47 direct?', a:'State to raise level of nutrition and standard of living; duty to bring prohibition of intoxicating drinks and drugs injurious to health. Gandhian principle.', h:'Nutrition + Prohibition', cat:'⚡ Key Articles' },
+  { q:'What is Article 51?', a:'Promotion of international peace and security — maintain just relations between nations, respect international law and treaties, encourage settlement of disputes by arbitration. Liberal principle.', h:'International peace — Art 51', cat:'⚡ Key Articles' },
+  { q:'What did Granville Austin say about FRs and DPSPs?', a:'"Conscience of the Constitution" — they form an integrated scheme, a "seamless web." Separating them would destroy the constitutional fabric.', h:'Conscience of Constitution', cat:'📌 Basics' },
+  { q:'Art 39(b) and 39(c) — what do they direct?', a:'Art 39(b): Material resources of community distributed for common good. Art 39(c): No concentration of wealth and means of production to common detriment. Used to justify nationalisation and land reforms.', h:'Equitable distribution + No monopoly', cat:'⚡ Key Articles' },
+  { q:'Which DPSP is Article 50?', a:'Separation of judiciary from executive in public services. Liberal-Intellectual principle. Implemented through CrPC and collegium system for judicial appointments.', h:'Judicial independence', cat:'⚡ Key Articles' },
+  { q:'What is Article 43A?', a:'Participation of workers in management of industries. Added by 42nd Amendment 1976. Socialist principle aiming at industrial democracy.', h:'Workers in management — 42nd Amend', cat:'⚡ Key Articles' },
+];
+
+// ═══════════════════════════════ STATE ═════════════════════════════════
+const ST = {
+  visited: new Set(['overview']),
+  all: ['overview','intro','articles','categories','frvsds','amendments','cases','schemes','mcq','flashcards','mocktest','diagrams'],
+  dark: true,
+  artTag: 'all',
+  mcqTag: 'all',
+  fcIdx: 0, fcFlipped: false, fcOrder: [...Array(FC_DATA.length).keys()], fcDiffs: {},
+  mock: { n:10, qs:[], cur:0, ans:[], timer:null, left:0 },
+  bestPct: 0,
+};
+
+// ═══════════════════════════════ NAV ═══════════════════════════════════
+function go(id) {
+  document.querySelectorAll('.sec').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  const sec = document.getElementById('sec-'+id);
+  if (sec) sec.classList.add('active');
+  document.querySelectorAll('.nav-btn').forEach(b => {
+    if ((b.getAttribute('onclick')||'').includes("'"+id+"'")) b.classList.add('active');
+  });
+  const titles = {
+    overview:'Dashboard', intro:'Introduction', articles:'Articles 36–51',
+    categories:'Three Categories', frvsds:'FR vs DPSP', amendments:'Key Amendments',
+    cases:'Landmark Cases', schemes:'Implementation & Schemes',
+    mcq:'MCQ Practice', flashcards:'Flashcards', mocktest:'Mock Test', diagrams:'Visual Diagrams'
+  };
+  document.getElementById('tbTitle').textContent = titles[id] || id;
+  ST.visited.add(id);
+  updateProg();
+  if (id === 'articles') renderArts(ARTICLES);
+  if (id === 'flashcards') fcInit();
+  if (id === 'mcq') { mcqRender(MCQ_DATA); }
+  closeSB();
+}
+
+function updateProg() {
+  const pct = Math.round((ST.visited.size / ST.all.length) * 100);
+  document.getElementById('progFill').style.width = pct+'%';
+  document.getElementById('progTxt').textContent = `${ST.visited.size} / ${ST.all.length} topics`;
+}
+
+function toggleSB() {
+  document.getElementById('sidebar').classList.toggle('open');
+  document.getElementById('overlay').classList.toggle('show');
+}
+function closeSB() {
+  document.getElementById('sidebar').classList.remove('open');
+  document.getElementById('overlay').classList.remove('show');
+}
+function toggleTheme() {
+  ST.dark = !ST.dark;
+  document.body.classList.toggle('light', !ST.dark);
+}
+
+// ═══════════════════════════════ ARTICLES ══════════════════════════════
+function artFilter(btn, tag) {
+  ST.artTag = tag;
+  document.querySelectorAll('.chips .chip').forEach(c => c.classList.remove('active'));
+  btn.classList.add('active');
+  applyArts();
+}
+function filterArts() { applyArts(); }
+function applyArts() {
+  const q = (document.getElementById('artSearch')||{value:''}).value.toLowerCase();
+  let data = ARTICLES;
+  if (ST.artTag !== 'all') data = data.filter(a => a.cat === ST.artTag || a.cat === 'intro');
+  if (q) data = data.filter(a => a.n.includes(q) || a.ch.toLowerCase().includes(q) || a.txt.toLowerCase().includes(q));
+  renderArts(data);
+}
+function renderArts(data) {
+  const catMap = { intro:'cat-liberal', socialist:'cat-socialist', gandhian:'cat-gandhian', liberal:'cat-liberal' };
+  const catLabel = { intro:'Definition', socialist:'Socialist', gandhian:'Gandhian', liberal:'Liberal' };
+  document.getElementById('artGrid').innerHTML = data.map(a => `
+    <div class="art-card">
+      <div class="art-card-top">
+        <span class="art-num">Art ${a.n}</span>
+        <span class="art-cat ${catMap[a.cat]}">${catLabel[a.cat]}</span>
+      </div>
+      <h4>${a.ch}</h4>
+      <p>${a.txt}</p>
+      ${a.key ? '<span class="key-flag">⭐ Frequently Asked</span>' : ''}
+    </div>
+  `).join('');
+}
+
+// ═══════════════════════════════ MCQ ═══════════════════════════════════
+function mcqTag(btn, tag) {
+  ST.mcqTag = tag;
+  document.querySelectorAll('#mcqChips .chip').forEach(c => c.classList.remove('active'));
+  btn.classList.add('active');
+  applyMCQ();
+}
+function mcqFilter() { applyMCQ(); }
+function applyMCQ() {
+  const q = (document.getElementById('mcqSrch')||{value:''}).value.toLowerCase();
+  let data = MCQ_DATA;
+  if (ST.mcqTag !== 'all') data = data.filter(d => d.tags.includes(ST.mcqTag));
+  if (q) data = data.filter(d => d.q.toLowerCase().includes(q));
+  mcqRender(data);
+}
+function mcqRender(data) {
+  const box = document.getElementById('mcqBox');
+  if (!data.length) { box.innerHTML = '<div class="card" style="text-align:center;color:var(--text-muted)">No questions found.</div>'; return; }
+  box.innerHTML = data.map((q, i) => `
+    <div class="mcq-wrap">
+      <div class="mcq-card">
+        <div class="mcq-meta">
+          <span class="mcq-num">Q${i+1}</span>
+          ${q.tags.includes('tnpsc') ? '<span class="eflag ft">TNPSC ★</span>' : ''}
+          ${q.tags.includes('upsc') ? '<span class="eflag fu">UPSC</span>' : ''}
+        </div>
+        <div class="mcq-q">${q.q}</div>
+        <div class="mcq-opts">
+          ${q.opts.map((o,oi) => `
+            <div class="mcq-opt" onclick="mcqPick(this,${q.id},${oi},${q.ans})">
+              <span class="ol">${String.fromCharCode(65+oi)}</span>
+              <span>${o}</span>
+            </div>
+          `).join('')}
+        </div>
+        <div class="exp" id="exp-${q.id}"><strong>Explanation:</strong> ${q.exp}</div>
+      </div>
+    </div>
+  `).join('');
+}
+function mcqPick(el, qid, chosen, correct) {
+  const card = el.closest('.mcq-card');
+  if (card.querySelector('.ok') || card.querySelector('.bad')) return;
+  card.querySelectorAll('.mcq-opt').forEach((o, i) => {
+    o.classList.add('dis');
+    if (i === correct) o.classList.add('ok');
+    if (i === chosen && i !== correct) o.classList.add('bad');
+  });
+  document.getElementById('exp-'+qid).classList.add('show');
+}
+
+// ═══════════════════════════════ FLASHCARDS ════════════════════════════
+function fcInit() {
+  document.getElementById('fcTot').textContent = FC_DATA.length;
+  fcRender();
+}
+function fcRender() {
+  const idx = ST.fcOrder[ST.fcIdx];
+  const c = FC_DATA[idx];
+  ST.fcFlipped = false;
+  document.getElementById('fcCard').classList.remove('flipped');
+  document.getElementById('fcQ').textContent = c.q;
+  document.getElementById('fcA').textContent = c.a;
+  document.getElementById('fcH').textContent = c.h ? '💡 '+c.h : '';
+  document.getElementById('fcCat').textContent = c.cat || '';
+  document.getElementById('fcCur').textContent = ST.fcIdx + 1;
+  document.getElementById('fcDiff').style.display = 'none';
+}
+function fcFlip() {
+  ST.fcFlipped = !ST.fcFlipped;
+  document.getElementById('fcCard').classList.toggle('flipped', ST.fcFlipped);
+  if (ST.fcFlipped) document.getElementById('fcDiff').style.display = 'flex';
+}
+function fcNext() { ST.fcIdx = (ST.fcIdx+1) % FC_DATA.length; fcRender(); }
+function fcPrev() { ST.fcIdx = (ST.fcIdx-1+FC_DATA.length) % FC_DATA.length; fcRender(); }
+function fcShuffle() {
+  for (let i = ST.fcOrder.length-1; i > 0; i--) {
+    const j = Math.floor(Math.random()*(i+1));
+    [ST.fcOrder[i],ST.fcOrder[j]] = [ST.fcOrder[j],ST.fcOrder[i]];
+  }
+  ST.fcIdx = 0; fcRender();
+}
+function fcRate(d) {
+  ST.fcDiffs[ST.fcOrder[ST.fcIdx]] = d;
+  const cnt = {easy:0,medium:0,hard:0};
+  Object.values(ST.fcDiffs).forEach(v => cnt[v]++);
+  document.getElementById('fcE').textContent = cnt.easy;
+  document.getElementById('fcM').textContent = cnt.medium;
+  document.getElementById('fcH2').textContent = cnt.hard;
+  fcNext();
+}
+
+// ═══════════════════════════════ MOCK TEST ═════════════════════════════
+function mSel(el, n) {
+  document.querySelectorAll('.mo').forEach(e => e.classList.remove('sel'));
+  el.classList.add('sel');
+  ST.mock.n = n;
+}
+function mStart() {
+  const shuffled = [...MCQ_DATA].sort(() => Math.random()-0.5);
+  ST.mock.qs = shuffled.slice(0, Math.min(ST.mock.n, MCQ_DATA.length));
+  ST.mock.cur = 0;
+  ST.mock.ans = Array(ST.mock.qs.length).fill(null);
+  ST.mock.left = ST.mock.qs.length * 60;
+  document.getElementById('mSetup').style.display = 'none';
+  document.getElementById('mActive').style.display = 'block';
+  document.getElementById('mResult').style.display = 'none';
+  document.getElementById('mTot').textContent = ST.mock.qs.length;
+  mRenderQ();
+  mTimerStart();
+}
+function mRenderQ() {
+  const q = ST.mock.qs[ST.mock.cur];
+  document.getElementById('mQN').textContent = ST.mock.cur + 1;
+  document.getElementById('mProg').style.width = ((ST.mock.cur / ST.mock.qs.length)*100)+'%';
+  document.getElementById('mQuestion').innerHTML = `
+    <div class="mcq-card">
+      <div class="mcq-q">${q.q}</div>
+      <div class="mcq-opts">
+        ${q.opts.map((o,oi) => `
+          <div class="mcq-opt" onclick="mPick(${oi})">
+            <span class="ol">${String.fromCharCode(65+oi)}</span>
+            <span>${o}</span>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+  `;
+}
+function mPick(chosen) {
+  ST.mock.ans[ST.mock.cur] = chosen;
+  mAdv();
+}
+function mSkip() { ST.mock.ans[ST.mock.cur] = -1; mAdv(); }
+function mAdv() {
+  ST.mock.cur++;
+  if (ST.mock.cur >= ST.mock.qs.length) mEnd();
+  else mRenderQ();
+}
+function mTimerStart() {
+  clearInterval(ST.mock.timer);
+  ST.mock.timer = setInterval(() => {
+    ST.mock.left--;
+    const m = Math.floor(ST.mock.left/60);
+    const s = ST.mock.left%60;
+    const el = document.getElementById('mTimer');
+    if (el) {
+      el.textContent = `${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+      el.classList.toggle('warn', ST.mock.left <= 60);
+    }
+    if (ST.mock.left <= 0) mEnd();
+  }, 1000);
+}
+function mEnd() {
+  if (!confirm || true) {
+    clearInterval(ST.mock.timer);
+    let c=0,w=0,s=0;
+    ST.mock.qs.forEach((q,i) => {
+      const a = ST.mock.ans[i];
+      if (a === null || a === -1) s++;
+      else if (a === q.ans) c++;
+      else w++;
+    });
+    const total = ST.mock.qs.length;
+    const pct = Math.round((c/total)*100);
+    if (pct > ST.bestPct) {
+      ST.bestPct = pct;
+      document.getElementById('bestPct').textContent = pct+'%';
+      localStorage.setItem('dpspBest', pct);
+    }
+    document.getElementById('mActive').style.display = 'none';
+    document.getElementById('mResult').style.display = 'block';
+    document.getElementById('rPct').textContent = pct+'%';
+    document.getElementById('rC').textContent = c;
+    document.getElementById('rW').textContent = w;
+    document.getElementById('rS').textContent = s;
+    let gr = pct >= 90 ? '🏆 Outstanding! Ready for UPSC.' :
+              pct >= 75 ? '⭐ Good! Strong DPSP understanding.' :
+              pct >= 60 ? '📚 Fair. Revise the articles and cases.' :
+              '🔄 More practice needed. Go through modules again!';
+    document.getElementById('rGrade').textContent = gr;
+  }
+}
+function mReset() {
+  clearInterval(ST.mock.timer);
+  document.getElementById('mSetup').style.display = 'block';
+  document.getElementById('mActive').style.display = 'none';
+  document.getElementById('mResult').style.display = 'none';
+}
+
+// ═══════════════════════════════ INIT ══════════════════════════════════
+(function init() {
+  const saved = localStorage.getItem('dpspBest');
+  if (saved) { ST.bestPct = parseInt(saved); document.getElementById('bestPct').textContent = saved+'%'; }
+  mcqRender(MCQ_DATA);
+  renderArts(ARTICLES);
+  fcInit();
+  updateProg();
+})();
+</script>
+</body>
+</html>
